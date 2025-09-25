@@ -1,0 +1,104 @@
+---
+title: "Introduction"
+description: "Gasless API enables developers to build gasless swaps and approvals into their dApps and workflows."
+---
+## Overview
+
+Welcome to 0x's Gasless API!
+
+Gasless API leverages the 0x relayer network to enable developers to build gasless approvals & swaps into their dApps & workflows.
+
+## The Problem
+
+> *"Gasless swaps have helped us create a simpler trading experience, where users can focus more on trading and less on network fees. Network fees have been a top pain point for the past few years, and giving users more flexibility around network fees is a huge UX unlock”. - Claudia Haddad, Coinbase Wallet Product Manager.*
+
+A major source of friction in web3 is the need for users to hold and maintain balances for each chain’s native token in order to pay for transactions. Before today, users had to overcome this hurdle by preloading wallets, moving balances across apps, and sending tokens between addresses to complete transactions.
+
+This is not only a significant barrier to more widespread adoption, as well as a major source of friction for existing DeFi users when gas spikes, exploring new chains and ecosystems, or trying to make a mobile trade on the go.
+
+## The Solution
+
+The Gasless API allows developers to create the smoothest trading experience in DeFi by abstracting away the complexities related to approvals, allowances, and swaps for their users.
+
+Build more intuitive user interfaces and user flows in your applications, improve your conversion funnel drop-offs due to insufficient gas, and set yourself up to easily onboard the next wave of users into web3.
+
+<Frame>
+![Gasless API Benefits](https://0x.org/docs/assets/images/gasless-benefits-d65735c1fa0ce2f6f0a5fcbbd7aed1c1.png)
+</Frame>
+
+## The benefits of Gasless API
+
+- **Improve your conversion funnel:** Add a gasless fall-back to your existing solution so users aren’t stuck with insufficient gas. Capture more trades when gas is spiking. Become the best places for users to explore DeFi.
+- **Build for crypto-native users:** Composable with Swap API if you want to offer execution optionality. Devs can design a UX where advanced users can opt in and opt out of gasless without sacrificing experience.
+- **Grow your user base with seamless onboarding:** Simplify user flows for your app and allow your users to start trading with any token that’s in their wallet. Users won’t be confronted with upfront requests for approvals and network fees, these are abstracted away into the backend.
+- **Deep liquidity for the best execution:** Unlock aggregated liquidity from 0x private market makers and 100+ exchanges including Uniswap for the most popular pairs on Ethereum, Polygon and Arbitrum.
+
+<Frame>
+![Gasless API is composable with Swap API](https://0x.org/docs/assets/images/gasless-and-swap-api-ec5336bdcc5ba098b39b5c4de15eb4a3.png)
+</Frame>
+
+<Tip>
+**TIP**
+
+Want to see a production-level implementation? 👉 Try out the composed Gasless API + Swap API flow live in Matcha Auto at [https://matcha.xyz/](https://matcha.xyz/)
+
+Want to see a demo app? 👉 Check out [Gasless API Demo App](https://github.com/0xProject/0x-examples/tree/main/gasless-next-app)
+</Tip>
+
+## Try it out
+
+Run this curl request to see a live quote response for selling 100 USDC to buy WETH:
+
+```bash
+// Replace API key in the header with your own key from https://dashboard.0x.org/curl --request GET \  --url 'https://api.0x.org/gasless/quote?chainId=1&sellToken=0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48&buyToken=0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2&sellAmount=100000000&taker=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045' \  --header '0x-api-key: YOUR_API_KEY' \  --header '0x-version: v2'
+```
+
+
+You will receive a response that looks like this:Expand to see response
+
+## Supported Chains
+
+Swap and Gasless v2 APIs are currently supported on the following chains. Select the chain in your request by providing the corresponding `chainId` request parameter. To request support for a new chain, please submit a request [here](https://0x.canny.io/request-features).
+
+| Chain | Chain ID | Swap API | Gasless API |
+| :--- | :--- | :--- | :--- |
+| Ethereum (Mainnet) | 1 | ✅ | ✅ |
+| Arbitrum | 42161 | ✅ | ✅ |
+| Avalanche | 43114 | ✅ | ✅ |
+| Base | 8453 | ✅ | ✅ |
+| Berachain | 80094 | ✅ |  |
+| Blast | 81457 | ✅ | ✅ |
+| BSC | 56 | ✅ | ✅ |
+| Ink | 57073 | ✅ |  |
+| Linea | 59144 | ✅ |  |
+| Mantle | 5000 | ✅ | ✅ |
+| Mode | 34443 | ✅ | ✅ |
+| Monad | 10143 | ✅ |  |
+| Optimism | 10 | ✅ | ✅ |
+| Polygon | 137 | ✅ | ✅ |
+| Scroll | 534352 | ✅ | ✅ |
+| Unichain | 130 | ✅ |  |
+| World Chain | 480 | ✅ |  |
+
+## Learn More
+
+### Videos
+
+**Gasless API Explained + Code + Next.js Demo App**
+
+<Frame>
+  <iframe width="100%" height="420" src="https://www.youtube.com/embed/0d0tVwJCbiw" title="How to Build a Gasless Token Swap Dapp" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</Frame>
+**Top 10 Gasless API Commonly Asked Questions**
+
+<Frame>
+  <iframe width="100%" height="420" src="https://www.youtube.com/embed/M0i7YAX1RJI" title="Top 10 Gasless API Commonly Asked Questions" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</Frame>
+
+### Code Examples
+
+- [Gasless API Headless example](https://github.com/0xProject/0x-examples/tree/main/gasless-v2-headless-example)
+
+### API Reference
+
+- See [Swap API reference](https://0x.org/docs/api#tag/Gasless)

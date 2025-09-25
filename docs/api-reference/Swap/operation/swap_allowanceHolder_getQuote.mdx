@@ -1,0 +1,415 @@
+---
+title: "getQuote (Allowance Holder)"
+description: "Get the firm quote for a swap using Allowance Holder to set allowances"
+api: GET https://api.0x.org/swap/allowance-holder/quote
+contentType: application/json
+---
+
+
+
+## query Parameters
+
+<ResponseField name="chainId" type="integer" required>
+Chain ID. See here for the list of supported chains
+Example: chainId=1
+Must be greater than 0
+</ResponseField>
+
+<ResponseField name="buyToken" type="string" required>
+The contract address of the token to buy
+Example: `buyToken=0xdac17f958d2ee523a2206206994597c13d831ec7`
+
+Regex: ^0x(?!0{40})[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="sellToken" type="string" required>
+The contract address of the token to sell
+
+Example: `sellToken=0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48`
+
+Regex: ^0x(?!0{40})[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="sellAmount" type="string" required>
+The amount of sellToken in sellToken base units to sell
+
+Example: `sellAmount=100000000`
+</ResponseField>
+
+<ResponseField name="taker" type="string" required>
+The address which holds the sellToken balance and has the allowance set for the swap
+
+Example: `taker=0x70a9f34f9b34c64957b9c401a97bfed35b95049e`
+
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="txOrigin" type="string">
+The address of the external account that started the transaction. This is only needed if taker is a smart contract.
+
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="recipient" type="string">
+The address to receive the buyToken. If not provided, defaults to the taker address.
+
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="swapFeeRecipient" type="string">
+The wallet address to receive the specified trading fees. You must also specify the swapFeeToken and swapFeeBps in the request to use this feature. Learn more about setting up a trading fee/commission in the FAQs
+
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="swapFeeBps" type="integer">
+The amount in Bps of the swapFeeToken to charge and deliver to the swapFeeRecipient. You must also specify the swapFeeRecipient and swapFeeToken in the request to use this feature. For security, this field has a default limit of 1000 Bps. If your application requires a higher value, please reach out to us.
+
+Range: [0 .. 10000]
+</ResponseField>
+
+<ResponseField name="swapFeeToken" type="string">
+The contract address of the token to receive trading fees in. This must be set to the value of either the buyToken or the sellToken. You must also specify the swapFeeRecipient and swapFeeBps in the request to use this feature
+
+Regex: ^0x(?!0{40})[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="tradeSurplusRecipient" type="string">
+The address to receive any trade surplus. If specified, this address will receive trade surplus when applicable. Otherwise, the taker will receive the surplus. This feature is only available to selected integrators on a custom pricing plan. In other cases, the surplus will be collected by 0x. For assistance with a custom plan, please contact support.
+
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="gasPrice" type="string">
+The target gas price (in wei) for the swap transaction. If not provided, the default value is based on the 0x gas price oracle
+</ResponseField>
+
+<ResponseField name="slippageBps" type="integer">
+The maximum acceptable slippage of the buyToken in Bps. If this parameter is set to 0, no slippage will be tolerated. If not provided, the default slippage tolerance is 100Bps
+
+Range: [0 .. 10000]
+
+Default: 100
+</ResponseField>
+
+<ResponseField name="excludedSources" type="string">
+Liquidity sources e.g. Uniswap_V3, SushiSwap, 0x_RFQ to exclude from the provided quote. See https://api.0x.org/sources?chainId= with the desired chain's ID for a full list of sources. Separate multiple sources with a comma
+</ResponseField>
+
+<ResponseField name="sellEntireBalance" type="string">
+If set to true, the taker's entire sellToken balance will be sold during trade execution. The sellAmount should be the maximum estimated value, as close as possible to the actual taker's balance to ensure the best routing. Selling more than the sellAmount may cause the trade to revert. This feature is designed for cases where the precise sell amount is determined during execution. Learn more here.
+
+Default: "false"
+
+Enum: "true", "false"
+</ResponseField>
+
+
+
+## header Parameters
+
+<ResponseField name="0x-api-key" type="string" required>
+Visit dashboard.0x.org to get your API Key
+</ResponseField>
+
+<ResponseField name="0x-version" type="string" required>
+API version
+Example: v2
+</ResponseField>
+
+
+## Responses
+
+### 200
+Successful response
+
+<Expandable title="Response body">
+<ResponseField name="allowanceTarget" type="string or null" required>
+The target contract address for which the taker needs to have an allowance in order to be able to complete the swap. For swaps with the native asset (ie "ETH" or "BNB") as the sellToken, wrapping the native asset (i.e. "ETH" to "WETH") or unwrapping, no allowance is needed
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="blockNumber" type="string" required>
+The block number at which the liquidity sources were sampled to generate the quote. This indicates the freshness of the quote
+Regex: ^[-+]?(0|[1-9]\d*)(\.\d+)?$
+</ResponseField>
+
+<ResponseField name="buyAmount" type="string" required>
+The amount of buyToken (in buyToken units) that will be bought in the swap
+Regex: ^[-+]?(0|[1-9]\d*)(\.\d+)?$
+</ResponseField>
+
+<ResponseField name="buyToken" type="string" required>
+The contract address of the token to buy in the swap
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="fees" type="object" required>
+<Expandable>
+<ResponseField name="issues" type="object" required>
+An object containing potential issues discovered during 0x validation that can prevent the swap from being executed successfully by the taker
+</ResponseField>
+</Expandable>
+</ResponseField>
+
+<ResponseField name="liquidityAvailable" type="boolean" required>
+This validates the availability of liquidity for the quote requested. The rest of the fields will only be returned if true
+Value: true
+</ResponseField>
+
+<ResponseField name="minBuyAmount" type="string" required>
+The price which must be met or else the transaction will revert. This price is influenced by the slippageBps parameter. On-chain sources may encounter price movements from quote to settlement
+Regex: ^[-+]?(0|[1-9]\d*)(\.\d+)?$
+</ResponseField>
+
+<ResponseField name="route" type="object" required>
+The path of liquidity sources to be used in executing this swap
+</ResponseField>
+
+<ResponseField name="sellAmount" type="string" required>
+The amount of sellToken (in sellToken units) that will be sold in this swap
+Regex: ^[-+]?(0|[1-9]\d*)(\.\d+)?$
+</ResponseField>
+
+<ResponseField name="sellToken" type="string" required>
+The contract address of the token to sell in the swap
+Regex: ^0x[a-fA-F0-9]{40}$
+</ResponseField>
+
+<ResponseField name="tokenMetadata" type="object" required>
+Swap-related metadata for the buy and sell token in the swap
+</ResponseField>
+
+<ResponseField name="totalNetworkFee" type="string or null" required>
+The estimated total network cost of the swap. On chains where there is no L1 data cost, it is calculated as gas * gasPrice. On chains where there is an L1 data cost, it is calculated as gas*gasPrice + L1 data
+Regex: ^[-+]?(0|[1-9]\d*)(\.\d+)?$
+</ResponseField>
+
+<ResponseField name="transaction" type="object" required>
+This object contains the details required to submit the transaction
+</ResponseField>
+
+<ResponseField name="zid" type="string" required>
+The unique ZeroEx identifier of the request
+</ResponseField>
+</Expandable>
+
+### 400
+Client Error
+
+<Expandable title="Response body">
+<ResponseField name="name" type="string" required>
+Error name, e.g., "INPUT_INVALID", "RECIPIENT_NOT_SUPPORTED", "SWAP_VALIDATION_FAILED", "TOKEN_NOT_SUPPORTED", "USER_NOT_AUTHORIZED"
+</ResponseField>
+
+<ResponseField name="message" type="string" required>
+Error message
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+<Expandable>
+<ResponseField name="zid" type="string" required>
+The unique ZeroEx identifier of the request
+</ResponseField>
+
+<ResponseField name="details" type="array" required>
+The list of invalid inputs
+</ResponseField>
+<Expandable>
+<ResponseField name="field" type="string" required>
+The input field name
+</ResponseField>
+
+<ResponseField name="reason" type="string" required>
+The validation failure reason
+</ResponseField>
+</Expandable>
+</Expandable>
+
+</ResponseField>
+</Expandable>
+
+
+### 403
+Client Error
+
+<Expandable title="Response body">
+<ResponseField name="name" type="string" required>
+Error name, e.g., "TAKER_NOT_AUTHORIZED_FOR_TRADE"
+</ResponseField>
+
+<ResponseField name="message" type="string" required>
+Error message
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+<Expandable>
+<ResponseField name="zid" type="string" required>
+The unique ZeroEx identifier of the request
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+
+### 422
+Client Error
+
+<Expandable title="Response body">
+<ResponseField name="name" type="string" required>
+Error name, e.g., "BUY_TOKEN_NOT_AUTHORIZED_FOR_TRADE", "SELL_TOKEN_NOT_AUTHORIZED_FOR_TRADE"
+</ResponseField>
+
+<ResponseField name="message" type="string" required>
+Error message
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+<Expandable>
+<ResponseField name="zid" type="string" required>
+The unique ZeroEx identifier of the request
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+
+### 500
+Server Error
+
+<Expandable title="Response body">
+<ResponseField name="name" type="string" required>
+Error name, e.g., "INTERNAL_SERVER_ERROR", "UNCATEGORIZED"
+</ResponseField>
+
+<ResponseField name="message" type="string" required>
+Error message
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+<Expandable>
+<ResponseField name="zid" type="string" required>
+The unique ZeroEx identifier of the request
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+
+<ResponseExample>
+```bash RESPONSE 200
+{
+  "allowanceTarget": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+  "blockNumber": "20114692",
+  "buyAmount": "100037537",
+  "buyToken": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+  "fees": {
+    "integratorFee": null,
+    "zeroExFee": null,
+    "gasFee": null
+  },
+  "issues": {
+    "allowance": {
+      "actual": "0",
+      "spender": "0x0000000000001ff3684f28c67538d4d072c22734"
+    },
+    "balance": {
+      "token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "actual": "0",
+      "expected": "100000000"
+    },
+    "simulationIncomplete": false,
+    "invalidSourcesPassed": []
+  },
+  "liquidityAvailable": true,
+  "minBuyAmount": "99037162",
+  "route": {
+    "fills": [
+      {
+        "from": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "to": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "source": "SolidlyV3",
+        "proportionBps": "10000"
+      }
+    ],
+    "tokens": [
+      {
+        "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+        "symbol": "USDC"
+      },
+      {
+        "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+        "symbol": "USDT"
+      }
+    ]
+  },
+  "sellAmount": "100000000",
+  "sellToken": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+  "tokenMetadata": {
+    "buyToken": {
+      "buyTaxBps": "0",
+      "sellTaxBps": "0"
+    },
+    "sellToken": {
+      "buyTaxBps": "0",
+      "sellTaxBps": "0"
+    }
+  },
+  "totalNetworkFee": "1393685870940000",
+  "transaction": {
+    "to": "0x7f6cee965959295cc64d0e6c00d99d6532d8e86b",
+    "data": "0x1fff991f00000000000000000000000070a9f34f9b34c64957b9c401a97bfed35b95049e000000000000000000000000dac17f958d2ee523a2206206994597c13d831ec70000000000000000000000000000000000000000000000000000000005e72fea00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000001c00000000000000000000000000000000000000000000000000000000000000144c1fb425e0000000000000000000000007f6cee965959295cc64d0e6c00d99d6532d8e86b000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb480000000000000000000000000000000000000000000000000000000005f5e1000000000000000000000000000000000000006e898131631616b1779bad70bc17000000000000000000000000000000000000000000000000000000006670d06c00000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000041ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000016438c9c147000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb4800000000000000000000000000000000000000000000000000000000000027100000000000000000000000006146be494fee4c73540cb1c5f87536abf1452500000000000000000000000000000000000000000000000000000000000000004400000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000084c31b8d7a0000000000000000000000007f6cee965959295cc64d0e6c00d99d6532d8e86b00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000005f5e10000000000000000000000000000000000000000000000000000000001000276a40000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "gas": "288079",
+    "gasPrice": "4837860000",
+    "value": "0"
+  },
+  "zid": "0x111111111111111111111111"
+}
+```
+
+```bash RESPONSE 400
+{
+  "name": "INPUT_INVALID",
+  "message": "string",
+  "data": {
+    "zid": "string",
+    "details": [
+      {
+        "field": "string",
+        "reason": "string"
+      }
+    ]
+  }
+}
+```
+
+```bash RESPONSE 403
+{
+  "name": "TAKER_NOT_AUTHORIZED_FOR_TRADE",
+  "message": "string",
+  "data": {
+    "zid": "string"
+  }
+}
+```
+
+```bash RESPONSE 422
+{
+  "name": "BUY_TOKEN_NOT_AUTHORIZED_FOR_TRADE",
+  "message": "string",
+  "data": {
+    "zid": "string"
+  }
+}
+```
+
+```bash RESPONSE 500
+{
+  "name": "INTERNAL_SERVER_ERROR",
+  "message": "string",
+  "data": {
+    "zid": "string"
+  }
+}
+```
+</ResponseExample>

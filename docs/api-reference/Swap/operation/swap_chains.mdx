@@ -1,0 +1,119 @@
+---
+title: "getChains"
+description: "Get list of supported chains for swap"
+api: GET https://api.0x.org/swap/chains
+contentType: application/json
+---
+
+### Headers
+<ParamField path="0x-api-key" type="string" required>
+Visit dashboard.0x.org to get your API Key
+</ParamField>
+
+<ParamField path="0x-version" type="string" required>
+API version
+</ParamField>
+
+## Responses
+
+### 200
+Success
+
+<Expandable title="Response body">
+<ResponseField name="chains" type="array" required>
+Array of supported chain objects
+</ResponseField>
+<ResponseField name="zid" type="string" required>
+The unique ZeroEx identifier of the request
+</ResponseField>
+</Expandable>
+
+
+### 500
+Server Error
+
+<Expandable title="Response body">
+<ResponseField name="name" type="string" required>
+Error name, e.g., "INTERNAL_SERVER_ERROR", "UNCATEGORIZED"
+</ResponseField>
+
+<ResponseField name="message" type="string" required>
+Error message
+</ResponseField>
+
+<ResponseField name="data" type="object" required>
+<Expandable>
+<ResponseField name="zid" type="string" required>
+The unique ZeroEx identifier of the request
+</ResponseField>
+</Expandable>
+</ResponseField>
+</Expandable>
+
+
+<ResponseExample>
+```bash RESPONSE 200
+[
+  {
+    "chainName": "Ethereum",
+    "chainId": "1"
+  },
+  {
+    "chainName": "Optimism",
+    "chainId": "10"
+  },
+  {
+    "chainName": "BSC",
+    "chainId": "56"
+  },
+  {
+    "chainName": "Polygon",
+    "chainId": "137"
+  },
+  {
+    "chainName": "Base",
+    "chainId": "8453"
+  },
+  {
+    "chainName": "Arbitrum",
+    "chainId": "42161"
+  },
+  {
+    "chainName": "Avalanche",
+    "chainId": "43114"
+  },
+  {
+    "chainName": "Linea",
+    "chainId": "59144"
+  },
+  {
+    "chainName": "Scroll",
+    "chainId": "534352"
+  },
+  {
+    "chainName": "Mantle",
+    "chainId": "5000"
+  },
+  {
+    "chainName": "Blast",
+    "chainId": "81457"
+  },
+  {
+    "chainName": "Mode",
+    "chainId": "34443"
+  }
+]
+```
+
+
+
+```bash RESPONSE 500
+{
+  "name": "INTERNAL_SERVER_ERROR",
+  "message": "string",
+  "data": {
+    "zid": "string"
+  }
+}
+```
+</ResponseExample>

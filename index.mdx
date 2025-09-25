@@ -1,97 +1,189 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+mode: "custom"
+title: "0x Docs "
 ---
 
-## Setting up
+<div className="relative w-full flex items-center justify-center" style={{ height: '28rem', overflow: 'hidden'}}>
 
-Get your documentation site up and running in minutes.
+<div
+  id="background-div"
+  className="absolute inset-0 h-full bg-[#f4f4f4] dark:bg-[#181818] bg-cover bg-center"
+></div>
 
-<Card
-  title="Start here"
-  icon="rocket"
-  href="/quickstart"
-  horizontal
+<div style={{ position: 'absolute', textAlign: 'center', padding: '0 1rem' }}>
+  <div
+    className="text-7xl font-bold w-full mt-12 text-black dark:text-gray-200"
+  >
+  Welcome to 0x Docs
+  </div>
+    <p className="text-2xl font-semibold my-4 text-black dark:text-gray-200">Embed swaps in your onchain app</p>
+    <div className="flex items-center justify-center" style={{ maxWidth: '800px', margin: '0 auto' }}>
+      <button
+        type="button"
+        className="hidden w-full lg:flex items-center text-sm leading-6 py-4 pl-4 pr-4 text-gray-500 rounded-full"
+        id="home-search-entry"
+        style={{
+          marginTop: '2rem',
+          maxWidth: '40rem',
+          background: '#FFF',
+          boxShadow: '0px 1px 4px 0px rgba(8, 9, 10, 0.25), 0px 0px 0px 4px rgba(255, 255, 255, 0.20)',
+          cursor: 'pointer',
+          textAlign: 'left',
+        }}
+        onClick={()=> document.getElementById('search-bar-entry').click()}
+      >
+        <svg
+          className="h-4 w-4 ml-1.5 flex-none bg-primary hover:bg-gray-600 dark:bg-primary-dark dark:hover:bg-white/70"
+          style={{
+          marginRight: '0.5rem',
+          maskImage:
+            'url("https://mintlify.b-cdn.net/v6.5.1/solid/magnifying-glass.svg")',
+          maskRepeat: 'no-repeat',
+          maskPosition: 'center center',
+          }}
+        />
+        How can we help you?
+      </button>
+    </div>
+    <div className="mt-8">
+    <a className="hover:bg-[#717271] bg-[#717276] text-white py-4 px-8 rounded-full" href="/docs/introduction/getting-started">Start building</a>
+    </div>
+  </div>
+</div>
+
+<div
+  style={{marginTop: '4rem', marginBottom: '8rem', maxWidth: '70rem', marginLeft: 'auto',
+  marginRight: 'auto', paddingLeft: '1.25rem',
+  paddingRight: '1.25rem' }}
 >
-  Follow our three step quickstart guide.
+<div className="flex flex-col w-full" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+  <h2
+    className="text-gray-900 text-center dark:text-gray-200"
+    style={{
+      fontSize: '2rem',
+      fontWeight: '700',
+    }}
+  >
+    Quick Links
+  </h2>
+</div>
+
+<CardGroup cols={4}>
+<Card title="Build with Swap API" href="https://0x.org/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs" cta="Build now" icon="hammer">
+Build a token swap app with 0x
 </Card>
 
-## Make it yours
-
-Design a docs site that looks great and empowers your users.
-
-<Columns cols={2}>
-  <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
-  >
-    Edit your docs locally and preview them in real time.
-  </Card>
-  <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
-    href="/api-reference/introduction"
-  >
-    Auto-generate API documentation from OpenAPI specifications.
-  </Card>
-</Columns>
-
-## Create beautiful pages
-
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
+<Card
+  title="Code Examples"
+  href="https://github.com/0xProject/0x-examples"
+  cta="Explore examples"
+  icon="code"
+>
+  Ready-to-use 0x code examples
+</Card>
 
 <Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
+  title="Monetize your app"
+  href="https://0x.org/docs/0x-swap-api/guides/monetize-your-app-using-swap"
+  cta="Unlock revenue"
+  icon="dollar-sign"
 >
-  Browse our showcase of exceptional documentation sites.
+  Unlock new revenue streams with 0x
 </Card>
+
+<Card
+  title="0x Cheat Sheet"
+  href="https://0x.org/docs/introduction/0x-cheat-sheet"
+  cta="View sheet"
+  icon="book"
+>
+  Quick reference for supported chains & contract addresses
+</Card>
+
+</CardGroup>
+
+<div
+  className="flex flex-col w-full"
+  style={{ marginTop: "2rem", marginBottom: "2rem" }}
+>
+  <h2
+    className="text-gray-900 text-center dark:text-gray-200"
+    style={{
+      fontSize: "2rem",
+      fontWeight: "700",
+    }}
+  >
+    Explore 0x APIs
+  </h2>
+</div>
+
+<CardGroup cols={3}>
+<Card
+  title="Swap API"
+  href="/docs/0x-swap-api/introduction"
+  cta="Get started"
+  icon="shuffle"
+>
+Embed swaps into your app
+</Card>
+
+<Card
+  title="Gasless API"
+  href="/docs/gasless-api/introduction"
+  cta="Get started"
+  icon="globe"
+>
+  Enable seamless, gasless DeFi transactions
+</Card>
+
+<Card
+  title="Trade Analytics API"
+  href="/docs/trade-analytics-api/introduction"
+  cta="Get started"
+  icon="chart-bar"
+>
+  Track & analyze trading activity
+</Card>
+
+</CardGroup>
+
+<div className="flex flex-col w-full" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+  <h2
+    className="text-gray-900 text-center dark:text-gray-200"
+    style={{
+      fontSize: '2rem',
+      fontWeight: '700',
+    }}
+  >
+    Dev Resources
+  </h2>
+</div>
+<CardGroup cols={3}>
+<Card
+  title="Troubleshooting"
+  href="https://0x.org/docs/developer-resources/faqs-and-troubleshooting"
+  cta="Get help"
+  icon="wrench"
+>
+Answers to common integration issues
+</Card>
+
+<Card
+  title="0x System Status"
+  href="https://0x.statuspal.io"
+  cta="Check status"
+  icon="signal"
+>
+  Real-time 0x system performance updates
+</Card>
+
+<Card
+  title="AI Tools"
+  href="https://0x.org/docs/category/ai-tools"
+  cta="Try tools"
+  icon="microchip"
+>
+AI tools for 0x APIs
+</Card>
+</CardGroup>
+</div>
