@@ -1,20 +1,21 @@
 ---
-title: "Introduction to 0x"
-sidebarTitle: "What is 0x?"
+title: What is 0x?
+description: Overview of how 0x works, the 0x APIs, and what you can build on 0x.
 ---
-<Tip>
-**TIP**
 
-Prefer to watch a video instead? Jump to [0x Videos](https://0x.org/docs/introduction/guides#videos).
+<Tip>
+
+Prefer to watch a video instead? Checkout the [0x Videos](https://0x.org/docs/introduction/guides#videos).
+
 </Tip>
 
 ## What is 0x?
 
-
-0x allows builders to embed swaps in their onchain apps. Tap into aggregated liquidity from 130+ sources, across 15+ EVM chains with the most efficient trade execution. Our suite of APIs has processed over 60M+ million transactions and $154B+ in volume from more than 9+ million users trading on apps like Matcha.xyz, Coinbase Wallet, Robinhood Wallet, Phantom, Metamask, Zerion, Zapper, and more.
+0x allows builders to embed swaps in their onchain apps. Tap into aggregated liquidity from 130+ sources, across 19+ EVM chains with the most efficient trade execution. Our suite of APIs has processed over 60M+ million transactions and $154B+ in volume from more than 9+ million users trading on apps like Matcha.xyz, Coinbase Wallet, Robinhood Wallet, Phantom, Metamask, Zerion, Zapper, and more.
 
 <Frame>
-![0x swap widget](https://0x.org/docs/assets/images/swap-widget-7538362651668891622d3cffb2ea5edf.png)
+  ![0x swap
+  widget](https://0x.org/docs/assets/images/swap-widget-7538362651668891622d3cffb2ea5edf.png)
 </Frame>
 
 ## Why use 0x?
@@ -28,15 +29,16 @@ At 0x, we believe all forms of value will eventually be tokenized and settle on-
 - [Trade Analytics API](https://0x.org/docs/trade-analytics-api/introduction) - Programatically access historical trades initiated through your apps via 0x Swap and Gasless APIs.
 
 <Frame>
-![0x routing](https://0x.org/docs/assets/images/routing-fce4478b601d3246d22593f25f1e3827.png)
+  ![0x
+  routing](https://0x.org/docs/assets/images/routing-fce4478b601d3246d22593f25f1e3827.png)
 </Frame>
 
 <Tip>
-**TIP**
 
-### ELI5 0x
+### ELI5 0x_RFQ
 
 Just like Google Flights compares prices across airlines to help you find the best flight deal, 0x API scans multiple decentralized exchanges to get you the best price when trading tokens. Instead of hopping between exchanges yourself, 0x does the hard work for you — all through a simple API that developers can plug into their apps. It's fast, secure, and saves you time and money by finding the best route.
+
 </Tip>
 
 ## The 0x Ecosystem
@@ -46,7 +48,8 @@ Just like Google Flights compares prices across airlines to help you find the be
 0x’s professional-grade APIs are built on the [0x Settler](https://0x.org/docs/developer-resources/core-concepts/contracts#0x-settler-contracts), a secure, audited smart contract. Builders using these APIs are part of the growing 0x ecosystem.
 
 <Frame>
-![0x tech stack v2](https://0x.org/docs/assets/images/0x-tech-stack-v2-b6789b1dcc674de32ceba05b4ac18339.png)
+  ![0x tech stack
+  v2](https://0x.org/docs/assets/images/0x-tech-stack-v2-b6789b1dcc674de32ceba05b4ac18339.png)
 </Frame>
 
 ### Makers and Takers
@@ -55,7 +58,7 @@ Within the 0x Ecosystem, there are two sides to a trade - Makers and Takers:
 
 #### Supply Side (Makers)
 
-This is the entity who creates [0x orders](https://0x.org/docs/developer-resources/core-concepts/order-types) and *provides liquidity* into the system for the Demand side (Takers) to consume. 0x aggregates liquidity from multiple sources including:
+This is the entity who creates [0x orders](https://0x.org/docs/developer-resources/core-concepts/order-types) and _provides liquidity_ into the system for the Demand side (Takers) to consume. 0x aggregates liquidity from multiple sources including:
 
 - On-chain liquidity - DEXs, AMMs (e.g. Uniswap, Curve, Bancor)
 - Off-chain liquidity - Professional Market Makers, 0x's Open Orderbook network
@@ -90,24 +93,32 @@ Here's how a 0x order is created and settled:
 <Steps>
 
 <Step>
-**Order Creation**: A Maker creates a [0x order](https://0x.org/docs/developer-resources/core-concepts/order-types), a JSON object that follows a standard format.
+  **Order Creation**: A Maker creates a [0x
+  order](https://0x.org/docs/developer-resources/core-concepts/order-types), a
+  JSON object that follows a standard format.
 </Step>
 
 <Step>
-**Maker Signature**: The Maker signs the order to cryptographically commit to it.
+  **Maker Signature**: The Maker signs the order to cryptographically commit to
+  it.
 </Step>
 
 <Step>
-**Order Sharing**: The order is shared with potential Takers (e.g., direcly via an app)
+  **Order Sharing**: The order is shared with potential Takers (e.g., direcly
+  via an app)
 </Step>
 
 <Step>
-**Aggregation**: 0x API aggregates liquidity across all [supply sources](https://0x.org/docs/introduction/introduction-to-0x#supply-aka-makers) and surfaces the best price.
-	- This is done using [off-chain relay, on-chain settlement](https://0x.org/docs/developer-resources/core-concepts/glossary#off-chain-relay-on-chain-settlement), saving gas and improving flexibility.
+  **Aggregation**: 0x API aggregates liquidity across all [supply
+  sources](https://0x.org/docs/introduction/introduction-to-0x#supply-aka-makers)
+  and surfaces the best price. - This is done using [off-chain relay, on-chain
+  settlement](https://0x.org/docs/developer-resources/core-concepts/glossary#off-chain-relay-on-chain-settlement),
+  saving gas and improving flexibility.
 </Step>
 
 <Step>
-**Order Submissions**: A Taker fills the order onchain by signing it and submitting it along with the fill amount.
+  **Order Submissions**: A Taker fills the order onchain by signing it and
+  submitting it along with the fill amount.
 </Step>
 
 <Step>
@@ -117,8 +128,11 @@ Here's how a 0x order is created and settled:
 ## What can I build on 0x?
 
 0x powers a wide variety of web3 applications. Whether you're building a product where trading is central — like an exchange — or adding seamless token swaps to an app where trading is just one feature, 0x makes it easy to plug in liquidity.
+
 <Note>
-For more inspiration, check out this [blog post](https://0x.org/post/inspiration-for-building-with-swap-api) and our [case studies](https://0x.org/case-studies).
+  For more inspiration, check out this [blog
+  post](https://0x.org/post/inspiration-for-building-with-swap-api) and our
+  [case studies](https://0x.org/case-studies).
 </Note>
 ### Demand-Side Use Cases (Takers)
 

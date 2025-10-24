@@ -42,10 +42,25 @@
           {
             "group": "Introduction",
             "pages": [
-              "docs/category/introduction",
               "docs/introduction/welcome",
-              "docs/introduction/getting-started",
-              "docs/introduction/introduction-to-0x"
+              {
+                "group": "Quickstart",
+                "pages": [
+                  "docs/introduction/getting-started",
+                  "docs/0x-swap-api/swap-tokens-with-0x-swap-api",
+                  "docs/introduction/supported-chains",
+                  "docs/introduction/demo-apps"
+                ]
+              },
+              "docs/introduction/introduction-to-0x",
+              "docs/introduction/api-issues"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "docs/core-concepts/introduction-to-0x",
+              "docs/core-concepts/0x-cheat-sheet"
             ]
           },
           {
@@ -96,11 +111,6 @@
           "anchor": "Community",
           "href": "https://discord.com/invite/official0x",
           "icon": "discord"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://0x.org/blog",
-          "icon": "newspaper"
         }
       ]
     }

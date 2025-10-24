@@ -1,17 +1,14 @@
 ---
-title: "Get Started"
-description: "Set up an account on the [0x Dashboard](https://dashboard.0x.org/apps) to generate API keys, manage your apps, tap into more developer resources."
+title: "Create a 0x API Key"
+description: "Set up an account on the [0x Dashboard](https://dashboard.0x.org/apps), get an API key, manage your apps, tap into more developer resources."
 ---
-
-
-Follow these steps to get started, in less than 5 minutes!
 
 ## 1. Create a 0x Account
 
 To create an account on the [0x Dashboard](https://dashboard.0x.org/apps), click **Sign Up**, enter your name, email address and password, and click **Continue**
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-sign-up-3cadc36b909e9797a96e74b6789ba01e.png)
+  ![](https://0x.org/docs/assets/images/0x-dashboard-sign-up-3cadc36b909e9797a96e74b6789ba01e.png)
 </Frame>
 
 ## 2. Create a Team
@@ -19,28 +16,28 @@ To create an account on the [0x Dashboard](https://dashboard.0x.org/apps), click
 Once verified, you'll be prompted to create a team on 0x. Decide on a team name and select the type of project you are building. You can share this account with your teammates.
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-create-team-473f4886b72a729b1c6bf1eb27496aff.png)
+  ![](https://0x.org/docs/assets/images/0x-dashboard-create-team-473f4886b72a729b1c6bf1eb27496aff.png)
 </Frame>
 
 ## 3. Tour the Dashboard
+
 ### 3.1 Create an App
 
 Click **Create an app** to get a live API key that has access to multiple 0x products.
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-create-an-app-f636ce7d70f6a9563f1661ef29bd0c2b.png)
+  ![](https://0x.org/docs/assets/images/0x-dashboard-create-an-app-f636ce7d70f6a9563f1661ef29bd0c2b.png)
 </Frame>
-
-
 
 From the pop-up, enter your app's name and which 0x products (Swap API and Gasless API) should be enabled for this API key, then click **Continue**.
 
 <Note>
-You will still be able to update the 0x products this key can unlock even after the app has been created.
+  You will still be able to update the 0x products this key can unlock even
+  after the app has been created.
 </Note>
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-create-app-screen-edb0e80ff32b7c681a1df68a9120fd9c.png)
+  ![](https://0x.org/docs/assets/images/0x-dashboard-create-app-screen-edb0e80ff32b7c681a1df68a9120fd9c.png)
 </Frame>
 
 ### 3.2 Reveal Your API Key
@@ -50,11 +47,8 @@ This key is unique and tied to your app. **Do not share it**. You can also creat
 Your API keys will allow you to authenticate requests on 0x. Remember to specify the key in your requests via the `0x-api-key` header parameter:
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-copy-api-key-255c2d9953007bc208d837765fca8b65.png)
+  ![](https://0x.org/docs/assets/images/0x-dashboard-copy-api-key-255c2d9953007bc208d837765fca8b65.png)
 </Frame>
-
-
-
 
 ### 3.3 Make Your First 0x API Call
 
@@ -71,6 +65,7 @@ curl --request GET \
 ```
 
 You will receive a response that looks like this:
+
 <Accordion title="Expand to see response">
 ```bash
 {
@@ -460,6 +455,7 @@ You will receive a response that looks like this:
 }
 ```
 </Accordion>
+
 This is a valid unsigned Ethereum transaction that can be [signed and submitted directly to a node](https://0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api#4-send-the-transaction-to-the-network) to complete the swap. Read more about the parameters [here](https://0x.org/docs/api#tag/Swap).
 
 To find a list of all networks supported by 0x, check out the [0x Cheat Sheet](https://0x.org/docs/introduction/0x-cheat-sheet).
@@ -469,53 +465,57 @@ To find a list of all networks supported by 0x, check out the [0x Cheat Sheet](h
 From the main dashboard screen, you can see all the apps you have created:
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-home-2ca04cd48cbc7ee2443d10daafeb1727.png)
+  ![](https://0x.org/docs/assets/images/0x-dashboard-home-2ca04cd48cbc7ee2443d10daafeb1727.png)
 </Frame>
-
-
-
 
 Click on an App to open up details about its API request health:
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-demo-app-annotated-b87a962c4e8045926803909819bcae59.png)
+  ![](https://0x.org/docs/assets/images/0x-dashboard-demo-app-annotated-b87a962c4e8045926803909819bcae59.png)
 </Frame>
 
 For each App, you can see the following:
+
 <Steps>
-<Step>
-Which **0x products are enabled for your API key** - Swap API and Gasless API
-</Step>
-<Step>
-From **API Key**, **see all the API keys** associated with this app and **create or delete keys**.
-</Step>
-<Step>
-From **Settings**, change the 0x products enabled for this app. Set your **0x Explorer Tag**. Change the **App Name**.
-</Step>
-<Step>
- Toggle to view the **total API requests** and the **API error rate** for this app.
-</Step>
+  <Step>
+    Which **0x products are enabled for your API key** - Swap API and Gasless
+    API
+  </Step>
+  <Step>
+    From **API Key**, **see all the API keys** associated with this app and
+    **create or delete keys**.
+  </Step>
+  <Step>
+    From **Settings**, change the 0x products enabled for this app. Set your
+    **0x Explorer Tag**. Change the **App Name**.
+  </Step>
+  <Step>
+    Toggle to view the **total API requests** and the **API error rate** for
+    this app.
+  </Step>
 </Steps>
 ## 5. Manage Your Account
 
 You can find additional settings to manage your account from **Your Account Avatar** in the top-right corner.
 
 <Frame>
-![](https://0x.org/docs/assets/images/0x-dashboard-settings-8ba62d5f6615f0b181b9d9f0d0906c1f.png)
+  ![](https://res.cloudinary.com/dr5klrk9c/image/upload/v1761258377/Screenshot_2025-10-23_at_3.26.12_PM_fdifq8.png)
 </Frame>
 
 - **Settings** - You can see your full name, team name, and account email, as well as change your password.
-- **Contact Support** - Have a question? Reach out to our dev support team.
 - **Docs** - Jump into our [developer docs](https://0x.org/docs) and start building
-- **Help** - Need help? Check out our commonly asked questions and help center.
-- **0x Explorer** - If you have a [0x Explorer](https://explorer.0x.org/apps) tag setup, easily analyze your app's on-chain activity and transactions. [Learn more about the 0x Explorer Tag](https://0x.org/docs/developer-resources/0x-explorer-tag-guide).
+- **Help Center** - Need help? Check out our commonly asked questions in the help center.
+- **Trade Analytics API** - [Trade Analytics API](https://0x.org/docs/category/trade-analytics-api) offers programmatic access to historical trades initiated through your apps via 0x Swap and Gasless APIs. Formatted for direct analytics use, this data enables you to derive actionable insights and business intelligence from your app's trading activity.
+
+The response includes comprehensive details for each trade, including the transaction hash, allowing you to verify the data on-chain.
 
 ## 6. Have a Question?
 
 If you are logged-in to the [0x Dashboard](https://dashboard.0x.org/apps), you have a direct line to our team via the Intercom Messenger for Developer Support in the bottom right of the dashboard.
 
 <Frame>
-![Intercom Messenger](https://0x.org/docs/assets/images/intercom-messenger-291c75b0f16434922abba7c45e743ddf.gif)
+  ![Intercom
+  Messenger](https://0x.org/docs/assets/images/intercom-messenger-291c75b0f16434922abba7c45e743ddf.gif)
 </Frame>
 
 Additionally, the [0x Help Center](https://help.0x.org/) is a great place to start if you have questions about 0x subscriptions, integration best practicies, and troubleshooting guides.
@@ -529,16 +529,30 @@ Now that you have a live API key, dive into our building resources and start bui
 Easily add crypto trading into your app with a single API. Access 100+ exchanges and thousands of tokens with the Swap API.
 </Card>
 
-<Card title="Gasless API" href="https://0x.org/docs/gasless-api/introduction" icon="gas-pump">
-Simplify defi with end-to-end gasless transactions. Abstract away the complexities of token approvals and gas with Gasless API.
+<Card
+  title="Gasless API"
+  href="https://0x.org/docs/gasless-api/introduction"
+  icon="gas-pump"
+>
+  Simplify defi with end-to-end gasless transactions. Abstract away the
+  complexities of token approvals and gas with Gasless API.
 </Card>
 
-<Card title="Trade Analytics API" href="https://0x.org/docs/trade-analytics-api/introduction" icon="chart-simple">
-Gain actionable insights with programmatic access to historical trades executed via your apps using 0x Swap and Gasless APIs.
+<Card
+  title="Trade Analytics API"
+  href="https://0x.org/docs/trade-analytics-api/introduction"
+  icon="chart-simple"
+>
+  Gain actionable insights with programmatic access to historical trades
+  executed via your apps using 0x Swap and Gasless APIs.
 </Card>
 
-<Card title="Dev Resources" href="https://0x.org/docs/category/developer-resources" icon="books">
-Glossary, FAQs & Troubleshooting, Audits, Bounties, Legal Guide, White Paper
+<Card
+  title="Dev Resources"
+  href="https://0x.org/docs/category/developer-resources"
+  icon="books"
+>
+  Glossary, FAQs & Troubleshooting, Audits, Bounties, Legal Guide, White Paper
 </Card>
 
 </CardGroup>
