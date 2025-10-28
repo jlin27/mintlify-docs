@@ -1,22 +1,23 @@
 ---
-title: "Setting Token Allowances"
-description: "To let a third party spend your ERC-20 tokens via the 0x API, you must set a [token allowance](https://tokenallowance.io/). For 0x, this means approving either [AllowanceHolder](https://0x.org/docs/developer-resources/core-concepts/contracts#allowanceholder-contract) or [Permit2](https://0x.org/docs/developer-resources/core-concepts/contracts#permit2-contract)to move tokens on your behalf."
+title: Set Token Allowances
+description: Learn how to set token allowances when making swaps
 ---
+
+To allow a third-party service—such as the 0x API—to move your ERC-20 tokens, you must first grant a [token allowance](https://tokenallowance.io/). When using 0x APIs, this means approving either [AllowanceHolder](/developer-resources/core-concepts/contracts#allowanceholder-contract) or [Permit2](/developer-resources/core-concepts/contracts#permit2-contract)to move tokens on your behalf.
 
 Which contract to approve depends on the API endpoint you're using:
 
-| API Endpoint | Allowance Target Contract |
-|:-------------|:-------------------------|
-| [`/swap/allowance-holder`](https://0x.org/docs/api#tag/Swap/operation/swap::allowanceHolder::getQuote) | AllowanceHolder |
-| [`/swap/permit2`](https://0x.org/docs/api#tag/Swap/operation/swap::permit2::getQuote) | Permit2 |
+| API Endpoint                                                                        | Allowance Target Contract |
+| ----------------------------------------------------------------------------------- | ------------------------- |
+| [`/swap/allowance-holder`](/api#tag/Swap/operation/swap::allowanceHolder::getQuote) | AllowanceHolder           |
+| [`/swap/permit2`](/api#tag/Swap/operation/swap::permit2::getQuote)                  | Permit2                   |
 
 The wallet holding the tokens (`taker`) must approve the contract address returned in `issues.allowance.spender` or `allowanceTarget` from the `/price` or `/quote` response.
 
-<Note>
-**INFO**
-
-No allowance is needed for wrapping/unwrapping ETH (e.g., WETH ⇄ ETH). In these cases, allowance is `null`.
-</Note>
+<Info>
+  No allowance is needed for wrapping/unwrapping ETH (e.g., WETH ⇄ ETH). In
+  these cases, allowance is `null`.
+</Info>
 
 ## Allowance Target vs. Entry Point
 
@@ -37,11 +38,13 @@ In API v2, **allowance management** and **swap execution** are handled by **diff
 This separation enhances security by isolating allowance management from swap execution.
 
 <Danger>
-**DANGER**
 
-- NEVER set an allowance on the [Settler contract](https://0x.org/docs/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
-- ONLY set allowances on [AllowanceHolder](https://0x.org/docs/introduction/0x-cheat-sheet#allowanceholder-contract) or [Permit2](https://0x.org/docs/introduction/0x-cheat-sheet#permit2-contract) contracts, as indicated by the API responses.
+- NEVER set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
+
+- ONLY set allowances on [AllowanceHolder](/introduction/0x-cheat-sheet#allowanceholder-contract) or [Permit2](/introduction/0x-cheat-sheet#permit2-contract) contracts, as indicated by the API responses.
+
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
+
 </Danger>
 
 Example response from `/swap/permit2/quote` will return back the contract address if an allowance needs to be set:
@@ -49,95 +52,73 @@ Example response from `/swap/permit2/quote` will return back the contract addres
 ```json
 "issues": {
   "allowance": {
-    "actual": "0",
-    "spender": "0x000000000022d473030f116ddee9f6b43ac78ba3"
-  }
-}
+  "actual": "0",
+  "spender": "0x000000000022d473030f116ddee9f6b43ac78ba3"
+},
 ```
 
 ## How to Set a Token Allowance
 
 You can approve allowances programmatically or via UI:
 
-<CardGroup>
-<Card title="Using wagmi" href="#using-wagmi" icon="file" horizontal/>
-<Card title="Using viem" href="#using-viem" icon="file" horizontal/>
-<Card title="Using Etherscan" href="#using-etherscan" icon="file" horizontal/>
+- [Using wagmi](#using-wagmi)
+- [Using viem](#using-viem)
+- [Using Etherscan](#using-etherscan)
 
-</CardGroup>
 ### Using wagmi
 
 wagmi provides a clean interface for reading and writing allowances:
-<Steps>
-<Step>
-Read current allowance using [`useReadContract`](https://wagmi.sh/react/api/hooks/useReadContract).
-</Step>
 
-<Step>
- Simulate and write approval with [`useSimulateContract`](https://wagmi.sh/react/api/hooks/useSimulateContract#usesimulatecontract) and [`useWriteContract`](https://wagmi.sh/react/api/hooks/useWriteContract#usewritecontract).
-</Step>
+1. Read current allowance using [`useReadContract`](https://wagmi.sh/react/api/hooks/useReadContract).
+2. Simulate and write approval with [`useSimulateContract`](https://wagmi.sh/react/api/hooks/useSimulateContract#usesimulatecontract) and [`useWriteContract`](https://wagmi.sh/react/api/hooks/useWriteContract#usewritecontract).
+3. Wait for transaction confirmation using [`useWaitForTransactionReceipt`](https://wagmi.sh/vue/api/composables/useWaitForTransactionReceipt#usewaitfortransactionreceipt).
 
-<Step>
- Wait for transaction confirmation using [`useWaitForTransactionReceipt`](https://wagmi.sh/vue/api/composables/useWaitForTransactionReceipt#usewaitfortransactionreceipt).
-</Step>
-</Steps>
 Here’s a minimal example:
 
-```typescript
+```javascript
 const { data: allowance } = useReadContract({
-    address: sellTokenAddress,
-    abi: erc20Abi,
-    functionName: 'allowance',
-    args: [taker, PERMIT2_ADDRESS],
+  address: sellTokenAddress,
+  abi: erc20Abi,
+  functionName: "allowance",
+  args: [taker, PERMIT2_ADDRESS],
 });
 
 const { data } = useSimulateContract({
-    address: sellTokenAddress,
-    abi: erc20Abi,
-    functionName: 'approve',
-    args: [PERMIT2_ADDRESS, MAX_ALLOWANCE],
+  address: sellTokenAddress,
+  abi: erc20Abi,
+  functionName: "approve",
+  args: [PERMIT2_ADDRESS, MAX_ALLOWANCE],
 });
 
 const { writeContractAsync } = useWriteContract();
-
 const { data: receipt } = useWaitForTransactionReceipt({
-    hash: writeContractResult,
+  hash: writeContractResult,
 });
 ```
 
-<Note>
-**INFO**
-
-For a full implementation, see the [Swap v2 Demo App](https://github.com/0xProject/0x-examples/tree/main/swap-v2-next-app) and [guide](https://0x.org/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs#token-allowances--approvals).
-</Note>
+<Info>
+  For a full implementation, see the [Swap v2 Demo
+  App](https://github.com/0xProject/0x-examples/tree/main/swap-v2-next-app) and
+  [guide](../guides/build-token-swap-dapp-nextjs#token-allowances--approvals).
+</Info>
 
 ### Using Etherscan
 
 You can manually set allowances via [Etherscan](http://etherscan.io/):
-<Steps>
-<Step>
- Navigate to the token’s contract page (e.g., [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#writeContract)).
-</Step>
 
-<Step>
- Go to **Write Contract > approve**
-</Step>
+1. Navigate to the token’s contract page (e.g., [WETH](https://etherscan.io/token/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2#writeContract)).
+2. Go to **Write Contract > approve**
+3. Enter:
 
-<Step>
-Enter:
 - `_spender`: the `issues.allowance.spender` address from the API.
 - `_value`: the maximum uint256 value (`2^256 - 1`).
 
-<Frame>
-![Etherscan approve method](https://0x.org/docs/assets/images/etherscan-token-allowance-4af38c498ea5cd4ddbc5bd0870bda4ef.png)
-</Frame>
-</Step>
-</Steps>
+![Etherscan approve method](/img/0x-swap-api/etherscan-token-allowance.png)
+
 ## Revoking Allowances
 
-To revoke an allowance, you will need to set the allowance to 0. This can be done programmatically or through a UI such as [https://revoke.cash/](https://revoke.cash/) .
+To revoke an allowance, you will need to set the allowance to 0. This can be done programmatically or through a UI such as https://revoke.cash/ .
 
 ## Common Issues
 
-When setting the token allowance, make sure to provide enough allowance for the buy or sell amount *as well as the gas;* otherwise, you may receive a 'Gas estimation failed' error.
-
+When setting the token allowance, make sure to provide enough allowance for the buy or sell amount _as well as the gas;_ otherwise, you may receive a 'Gas estimation failed' error.
