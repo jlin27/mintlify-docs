@@ -47,12 +47,11 @@
                 "group": "Quickstart",
                 "pages": [
                   "docs/introduction/getting-started",
-                  "docs/0x-swap-api/swap-tokens-with-0x-swap-api",
-                  "docs/introduction/supported-chains",
-                  "docs/introduction/demo-apps"
+                  "docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api"
                 ]
               },
-              "docs/introduction/introduction-to-0x",
+              "docs/introduction/supported-chains",
+              "docs/introduction/demo-apps",
               "docs/introduction/api-issues"
             ]
           },
@@ -60,18 +59,44 @@
             "group": "Core Concepts",
             "pages": [
               "docs/core-concepts/introduction-to-0x",
-              "docs/core-concepts/0x-cheat-sheet"
+              "docs/core-concepts/0x-cheat-sheet",
+              "docs/core-concepts/contracts",
+              "docs/core-concepts/order-types",
+              "docs/core-concepts/glossary",
+              "docs/core-concepts/white-paper",
+              "docs/core-concepts/transaction-data"
             ]
           },
           {
             "group": "Swap API",
             "pages": [
-              "docs/0x-swap-api/introduction",
+              "docs/0x-swap-api/guides/introduction",
+              {
+                "group": "Guides",
+                "pages": [
+                  "docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api",
+                  "docs/0x-swap-api/guides/build-token-swap-dapp-nextjs",
+                  "docs/0x-swap-api/guides/monetize-your-app-using-swap",
+                  "docs/0x-swap-api/guides/troubleshooting-swap-api",
+                  {
+                    "group": "Permit2",
+                    "pages": [
+                      "docs/0x-swap-api/guides/build-token-swap-dapp-nextjs-permit2",
+                      "docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api-permit2"
+                    ]
+                  }
+                ]
+                
+              },
               {
                 "group": "Additional Topics",
                 "pages": [
                   "docs/0x-swap-api/advanced-topics/how-to-set-your-token-allowances",
-                  "docs/0x-swap-api/advanced-topics/handling-native-tokens"
+                  "docs/0x-swap-api/advanced-topics/handling-native-tokens",  
+                  "docs/0x-swap-api/advanced-topics/0x-parser",
+                  "docs/0x-swap-api/advanced-topics/sell-entire-balance",
+                  "docs/0x-swap-api/advanced-topics/buy-sell-tax-support",
+                  "docs/0x-swap-api/advanced-topics/about-the-rfq-system"
                 ]
               }
             ]
@@ -80,6 +105,14 @@
             "group": "Gasless API",
             "pages": [
               "docs/gasless-api/introduction",
+              {
+                  "group": "Guides",
+                  "pages": [
+                    "docs/gasless-api/guides/get-started-with-gasless-api",
+                    "docs/gasless-api/understanding-gasless-api",
+                    "docs/gasless-api/guides/gasless-api-technical-appendix"
+                  ]
+              },
               "docs/gasless-api/gasless-faq"
             ]
           },
