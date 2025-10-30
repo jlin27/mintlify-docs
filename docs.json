@@ -118,7 +118,26 @@
           },
           {
             "group": "Trade Analytics API",
-            "pages": ["docs/trade-analytics-api/introduction"]
+            "pages": [
+              "docs/trade-analytics-api/introduction",
+              "docs/core-concepts/transaction-data"
+            ]
+          },
+          {
+            "group": "Developer Resources",
+            "pages": [
+              "docs/developer-resources/bounties",
+              "docs/developer-resources/rate-limits",
+              "docs/developer-resources/system-status"
+            ]
+          },
+          {
+            "group": "Upgrading",
+            "pages": [
+              "docs/upgrading/overview",
+              "docs/upgrading/upgrading-to-swap-v2",
+              "docs/upgrading/upgrading-to-gasless-v2"
+            ]
           }
         ]
       },
