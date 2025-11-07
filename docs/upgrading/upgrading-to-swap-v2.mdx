@@ -1,7 +1,7 @@
 ---
 sidebarTitle: To Swap API v2
 title: Upgrading to Swap API v2
-description: Learn how to upgrade to the latest version (v2) of Swap API
+description: Learn how to upgrade to the latest version (v2) of Swap API.
 ---
 
 <Tip>
@@ -41,7 +41,7 @@ This section showcases example requests and responses for both the Swap API v1 a
 
 <Accordion title="Swap API v1">
 
-<Accordion title="Swap API v1 /quote">
+<Accordion title="Swap API v1 `/quote`">
 
 <Accordion title="Request">
 
@@ -133,7 +133,7 @@ curl --request GET
 
 <Accordion title="Swap API v2">
 
-<Accordion title="Swap API v2 /quote (AllowanceHolder)">
+<Accordion title="Swap API v2 `/quote` (AllowanceHolder)">
 
 <Accordion title="Request">
 
@@ -210,7 +210,7 @@ curl --request GET
 </Accordion>
 </Accordion>
 
-<Accordion title="Swap API v2 /quote (Permit2)">
+<Accordion title="Swap API v2 `/quote` (Permit2)">
 
 <Accordion title="Request">
 
@@ -514,3 +514,51 @@ The following section overviews of how to update Swap API price and quote to han
   - [ ] Note that the `/quote` response structure has changed from v1 to v2, specifically `to`, `gas` ,`data`, `value`, `gasPrice` → have moved under `quoteResponse.transaction.to`, `quoteResponse.transaction.gas`,`quoteResponse.transaction.data`, `quoteResponse.transaction.value`, `quoteResponse.transaction.gasPrice` ([code](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-headless-example/index.ts#L121-L122))
 
 ## Migration FAQ
+
+<Accordion title="Should I use AllowanceHolder or Permit2 for my meta-aggregator project?">
+
+If you are aggregating multiple liquidity sources, it's likely you want maintain a consistent user experience across wallets.
+
+The decision when choosing between Permit2 or AllowanceHolder boils down to mainly UX and integration type.
+
+- **AllowanceHolder** is ideal for single-signature use cases and provides a consistent user experience when aggregating across multiple sources. It also closely resembles the 0x Swap v1 integration, making it quicker to implement.
+
+- **Permit2** is a universal standard that allows users to share token approvals across smart contracts (i.e. if users have an infinite allowance via another app, no reset is needed). However, Permit2 requires two signatures per trade (one for approval, one for the trade), which may impact user experience.
+
+Evaluate your project’s needs and the desired user experience to make the best decision.
+
+</Accordion>
+
+<Accordion title="How can I find the latest address for the AllowanceHolder contract, and how often will it be updated?">
+
+The AllowanceHolder contract is deployed at different addresses based on the chain’s latest supported EVM hardfork. You can find the most recent addresses in the [list of deployed addresses](https://0x.org/docs/introduction/0x-cheat-sheet#allowanceholder-address).
+
+The AllowanceHolder address only changes when a chain adopts a higher hardfork.
+
+</Accordion>
+
+<Accordion title="In the AllowanceHolder flow, will I ever approve a different contract than where the swap transaction occurs?">
+
+No, in the AllowanceHolder flow, the allowance will be set on the AllowanceHolder contract, and the `transaction.to` field will also point to the AllowanceHolder. The only exception is when the sell token is ETH, as no allowance is needed for ETH transactions. In that case, the `transaction.to` field will be the address of the most recent Settler contract.
+
+You will never need to approve one contract and send swap calldata to another. For more information, refer to the [0x Settler documentation](https://github.com/0xProject/0x-settler?tab=readme-ov-file#how-do-i-find-the-most-recent-deployment).
+
+</Accordion>
+
+<Accordion title="If an allowance is needed when using AllowanceHolder, which contract will `issues.allowance.spender` return back?">
+
+The AllowanceHolder contract will be returned.
+
+</Accordion>
+
+<Accordion title="Can I skip validation for the /quote endpoint by leaving the `taker`parameter blank?">
+
+No, the `taker` parameter is required in v2 for `/quote`. It enables us to return calldata and any issues that may have caused a failure during quote validation.
+
+</Accordion>
+
+<Accordion title="Will the `/price` endpoint include RFQ if I leave the `taker` parameter blank?">
+
+Yes, RFQ will be included in the response from the `/price` endpoint even if the `taker` parameter is left blank. The `taker` parameter is optional for this endpoint.
+
+</Accordion>

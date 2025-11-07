@@ -4,9 +4,8 @@ description: "Easily embed crypto trading in your app with Swap API"
 ---
 
 <Tip>
-**TIP**
+Prefer to watch a video or see a code demo instead? Jump to [0x Videos](https://www.youtube.com/playlist?list=PLN51Tjs40v5MpBMfGxxiML9x2sd0uD94D) or [0x Code Examples](https://github.com/0xProject/0x-examples).
 
-Prefer to watch a video or see a code demo instead? Jump to [0x Videos](https://0x.org/docs/introduction/guides#videos) or [0x Code Examples](https://0x.org/docs/introduction/guides#code-examples).
 </Tip>
 
 ## What is Swap API?
@@ -16,13 +15,13 @@ Swap API is a professional-grade DEX aggregation and smart order routing REST AP
 Swap API allows you to add crypto trading in your application with just a single API integration. It finds the best real-time price across 100+ liquidity sources, both public (AMMs) and private (professional market makers), across [the supported chains](https://0x.org/docs/0x-swap-api/introduction#supported-networks).
 
 <Frame>
-![Swap API UI](https://0x.org/docs/assets/images/swap-api-ui-d28611dd5b85f518a34f7c0326f80034.png)
+  ![Swap API
+  UI](https://0x.org/docs/assets/images/swap-api-ui-d28611dd5b85f518a34f7c0326f80034.png)
 </Frame>
 
 <Tip>
-**TIP**
-
-Want to build a gasless trading app? Check out [Gasless API](https://0x.org/docs/gasless-api/introduction) instead.
+  Want to build a gasless trading app? Check out [Gasless
+  API](https://0x.org/docs/gasless-api/introduction) instead.
 </Tip>
 
 ## Why use Swap API?
@@ -50,8 +49,8 @@ curl --request GET \
   --header "0x-version: v2"
 ```
 
-  
 You will receive a response that looks like this:
+
 <Accordion title="Expand to see response">
 ```bash
 {
@@ -350,21 +349,18 @@ Swap API is a professional-grade DEX aggregation and smart order routing API. Us
 Below is a high-level diagram showing how Swap API works under the hood:
 
 <Frame>
-![Swap API Diagram](https://0x.org/docs/assets/images/swap-api-diagram-b557e01e96f8612c8da768aab6a0e1b6.png)
+  ![Swap API
+  Diagram](https://0x.org/docs/assets/images/swap-api-diagram-b557e01e96f8612c8da768aab6a0e1b6.png)
 </Frame>
 <Steps>
-<Step title="Retail Trader Requests a quote">
-</Step>
-<Step title="Swap API simultaneously (a) retrieves quote from AMM and (b) requests quotes from Market Makers">
-</Step>
-<Step title="Market Makers responds with signed quote at their discretion">
-</Step>
-<Step title="Swap API aggregates the quotes it has received and compares the prices. It returns the best price to the Retail Trader.">
-</Step>
-<Step title="If the Retail Trader likes the quote, the Retail Trader signs the order. Swap API sends the signed order to the blockchain to be settled by the 0x Protocol.">
-</Step>
+  <Step title="Retail Trader Requests a quote"></Step>
+  <Step title="Swap API simultaneously (a) retrieves quote from AMM and (b) requests quotes from Market Makers"></Step>
+  <Step title="Market Makers responds with signed quote at their discretion"></Step>
+  <Step title="Swap API aggregates the quotes it has received and compares the prices. It returns the best price to the Retail Trader."></Step>
+  <Step title="If the Retail Trader likes the quote, the Retail Trader signs the order. Swap API sends the signed order to the blockchain to be settled by the 0x Protocol."></Step>
 </Steps>
-For more details about how 0x orders are executed, check out [How does 0x work?](https://0x.org/docs/introduction/introduction-to-0x#how-does-0x-work)
+For more details about how 0x orders are executed, check out [How does 0x
+work?](https://0x.org/docs/introduction/introduction-to-0x#how-does-0x-work)
 
 Under the hood, Swap API performs a series of tasks:
 
@@ -376,32 +372,31 @@ Under the hood, Swap API performs a series of tasks:
 
 Swap and Gasless v2 APIs are currently supported on the following chains. Select the chain in your request by providing the corresponding `chainId` request parameter. To request support for a new chain, please submit a request [here](https://0x.canny.io/request-features).
 
-| Chain | Chain ID | Swap API | Gasless API |
-|:------|:---------|:---------|:------------|
-| Ethereum (Mainnet) | 1 | ✅ | ✅ |
-| Arbitrum | 42161 | ✅ | ✅ |
-| Avalanche | 43114 | ✅ | ✅ |
-| Base | 8453 | ✅ | ✅ |
-| Berachain | 80094 | ✅ |  |
-| Blast | 81457 | ✅ | ✅ |
-| BSC | 56 | ✅ | ✅ |
-| Ink | 57073 | ✅ |  |
-| Linea | 59144 | ✅ |  |
-| Mantle | 5000 | ✅ | ✅ |
-| Mode | 34443 | ✅ | ✅ |
-| Monad | 10143 | ✅ |  |
-| Optimism | 10 | ✅ | ✅ |
-| Polygon | 137 | ✅ | ✅ |
-| Scroll | 534352 | ✅ | ✅ |
-| Unichain | 130 | ✅ |  |
-| World Chain | 480 | ✅ |  |
+| Chain              | Chain ID | Swap API | Gasless API |
+| :----------------- | :------- | :------- | :---------- |
+| Ethereum (Mainnet) | 1        | ✅       | ✅          |
+| Arbitrum           | 42161    | ✅       | ✅          |
+| Avalanche          | 43114    | ✅       | ✅          |
+| Base               | 8453     | ✅       | ✅          |
+| Berachain          | 80094    | ✅       |             |
+| Blast              | 81457    | ✅       | ✅          |
+| BSC                | 56       | ✅       | ✅          |
+| Ink                | 57073    | ✅       |             |
+| Linea              | 59144    | ✅       |             |
+| Mantle             | 5000     | ✅       | ✅          |
+| Mode               | 34443    | ✅       | ✅          |
+| Monad              | 10143    | ✅       |             |
+| Optimism           | 10       | ✅       | ✅          |
+| Polygon            | 137      | ✅       | ✅          |
+| Scroll             | 534352   | ✅       | ✅          |
+| Unichain           | 130      | ✅       |             |
+| World Chain        | 480      | ✅       |             |
 
 ## Get Started
 
 <Note>
-**INFO**
-
-To create an account, and get your live API keys to access 0x APIs, visit the **[0x Dashboard](https://go.0x.org/create-account-txrelay-z)**.
+  To create an account, and get your live API keys to access 0x APIs, visit the
+  **[0x Dashboard](https://go.0x.org/create-account-txrelay-z)**.
 </Note>
 
 Now that you're familiar with what Swap API offers, read [Get started with Swap API](https://0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api) to get started or choose one of the resources below.
@@ -409,25 +404,37 @@ Now that you're familiar with what Swap API offers, read [Get started with Swap 
 ### Code Examples
 
 <CardGroup>
-<Card title="0x Next.js Demo App" href="https://github.com/0xProject/0x-examples/swap-v2-next-app" icon="file" horizontal/>
-<Card title="Swap API Headless Example" href="https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-headless-example" icon="file" horizontal/>
+<Card title="0x Next.js Demo App" href="https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-next-app" horizontal/>
+<Card title="Swap API Headless Example" href="https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-headless-example" horizontal/>
 
 </CardGroup>
 ### Guides
 
 <CardGroup>
-<Card title="Get started with Swap API" href="https://0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api" icon="file" horizontal/>
-<Card title="How to Build a Token Swap DApp with Swap API" href="https://0x.org/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs" icon="file" horizontal/>
+  <Card
+    title="Get started with Swap API"
+    href="https://0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api"
+    horizontal
+  />
+  <Card
+    title="How to Build a Token Swap DApp with Swap API"
+    href="https://0x.org/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs"
+    horizontal
+  />
 </CardGroup>
 ### API Reference
 
 <CardGroup>
-<Card title="Swap API Reference" href="/docs/api-reference/Swap/operation/swap_allowanceHolder_getPrice" icon="file" horizontal/>
+  <Card
+    title="Swap API Reference"
+    href="/docs/api-reference/Swap/operation/swap_allowanceHolder_getPrice"
+    horizontal
+  />
 </CardGroup>
 
 ### FAQs
 
 <CardGroup>
-<Card title="FAQs & Troubleshooting" href="https://0x.org/docs/developer-resources/faqs-and-troubleshooting" icon="file" horizontal/>
+<Card title="FAQs & Troubleshooting" href="https://0x.org/docs/developer-resources/faqs-and-troubleshooting" horizontal/>
 
 </CardGroup>

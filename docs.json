@@ -32,12 +32,10 @@
     "tabs": [
       {
         "tab": "Home",
-        "icon": "house",
         "pages": ["index"]
       },
       {
         "tab": "Docs",
-        "icon": "book-open",
         "groups": [
           {
             "group": "Introduction",
@@ -52,25 +50,19 @@
               },
               "docs/introduction/supported-chains",
               "docs/introduction/demo-apps",
-              "docs/introduction/api-issues"
-            ]
-          },
-          {
-            "group": "Core Concepts",
-            "pages": [
-              "docs/core-concepts/introduction-to-0x",
-              "docs/core-concepts/0x-cheat-sheet",
-              "docs/core-concepts/contracts",
-              "docs/core-concepts/order-types",
-              "docs/core-concepts/glossary",
-              "docs/core-concepts/white-paper",
-              "docs/core-concepts/transaction-data"
+              {
+                "group": "Need Help?",
+                "pages": [
+                  "docs/introduction/faq/faq",
+                  "docs/introduction/faq/api-issues"
+                ]
+              }
             ]
           },
           {
             "group": "Swap API",
             "pages": [
-              "docs/0x-swap-api/guides/introduction",
+              "docs/0x-swap-api/introduction",
               {
                 "group": "Guides",
                 "pages": [
@@ -120,6 +112,19 @@
             "group": "Trade Analytics API",
             "pages": [
               "docs/trade-analytics-api/introduction",
+              "docs/core-concepts/transaction-data",
+              "docs/trade-analytics-api/trade-analytics-faq"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "docs/core-concepts/introduction-to-0x",
+              "docs/core-concepts/0x-cheat-sheet",
+              "docs/core-concepts/contracts",
+              "docs/core-concepts/order-types",
+              "docs/core-concepts/glossary",
+              "docs/core-concepts/white-paper",
               "docs/core-concepts/transaction-data"
             ]
           },
@@ -143,12 +148,18 @@
       },
       {
         "tab": "API Reference",
-        "icon": "code-simple",
         "openapi": "openapi.yaml"
       },
       {
+        "tab": "SDKs",
+        "pages": ["docs/sdk-utilities/swap-ts-sdk", "docs/sdk-utilities/0x-parser"]
+      },
+      {
+        "tab": "Liquidity Integration",
+        "pages": ["docs/liquidity-integrations"]
+      },
+      {
         "tab": "Changelog",
-        "icon": "bullhorn",
         "pages": ["docs/changelog"]
       }
     ],
