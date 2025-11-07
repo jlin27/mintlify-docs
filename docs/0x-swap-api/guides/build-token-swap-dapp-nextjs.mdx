@@ -19,7 +19,7 @@ This example app demonstrates the same core principles used in production app su
 - Approve token allowances for AllowanceHolder
 - Submit transactions
 
-![](/docs/static/img/0x-swap-api/swap-v2-demo-app.png)
+![](/docs/static/docs/static/img/0x-swap-api/swap-v2-demo-app.png)
 
 Video tutorial version here:
 
@@ -58,7 +58,7 @@ To build our swap app, we’ll focus on:
 
 These components are transferable to almost any token swapping app being built.
 
-![Swap v2 dApp Core Concepts](/docs/static/img/0x-swap-api/swap-v2-core-concepts-allowance-holder.png)
+![Swap v2 dApp Core Concepts](/docs/static/docs/static/img/0x-swap-api/swap-v2-core-concepts-allowance-holder.png)
 
 ## 🌈 RainbowKit
 
@@ -123,7 +123,7 @@ This is also important because `/quote` returns back an order in which a Market 
    - Once the allowance is approved, the button changes to **“Review Trade”**.
    - User reviews final trade details and proceeds to confirm the swap.
 
-![](/img/0x-swap-api/swap-demo-price-view.gif)
+![](/docs/static/img/0x-swap-api/swap-demo-price-view.gif)
 
 ### Code
 
@@ -157,7 +157,7 @@ Before placing a trade on the PageView, users must set allowances on all tokens 
 
 In our case, we want to approve an allowance for AllowanceHolder contract to trade our ERC20 tokens for us. To do this, we need to approve a specific allowance, allowing this contract to move a certain amount of our ERC20 tokens on our behalf. Read more about [token allowances](../advanced-topics/how-to-set-your-token-allowances)
 
-![token allowance ui](/img/0x-swap-api/token-allowance-ui.png)
+![token allowance ui](/docs/static/img/0x-swap-api/token-allowance-ui.png)
 
 The logic to check if the user has approved a token allowance the selected sell token is setup in [/app/components/price.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/price.tsx#L382-L455).
 
@@ -182,7 +182,7 @@ The logic to check if the user has approved a token allowance the selected sell 
 
 The QuoteView component provides users with an overview of the transaction details before executing the token swap. Earlier in the PriceView, we provided users an indicative price because they were just browsing for pricing information, so did not need a full 0x order. On the QuoteView, users are ready to fill the order, so we need to provide them a firm quote, and the Market Makers can know to reserve the proper assets to settle the trade.
 
-![swap demo quoteview](/img/0x-swap-api/swap-demo-quoteview-affiliate-fee.png)
+![swap demo quoteview](/docs/static/img/0x-swap-api/swap-demo-quoteview-affiliate-fee.png)
 
 ### UI/UX Walk-through
 
@@ -247,9 +247,11 @@ plan. For assistance with setting up a custom plan, please contact support.
 
 ## Try it out
 
-:::info
-Here is code for the demo app, feel free to use it to get started quickly for your own project: https://github.com/0xProject/0x-examples/tree/main/swap-allowance-holder0v2-next-app
-:::
+<Note>
+  Here is code for the demo app, feel free to use it to get started quickly for
+  your own project:
+  https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-next-app
+</Note>
 
 ## Conclusion
 

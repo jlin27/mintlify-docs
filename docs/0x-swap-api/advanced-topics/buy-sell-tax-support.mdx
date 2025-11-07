@@ -31,7 +31,7 @@ When handling buy/sell tax tokens, integrators face two main challenges:
 - **User Experience**: Users must know if a token has a buy/sell tax upfront. Without reliable detection, integrators may adjust slippage to account for fees, but setting slippage too low risks reverts, while setting it too high exposes users to MEV attacks, undermining trust in your app.
 
 ```mdx-code-block
-import GenericSwapError from '/static/img/0x-swap-api/generic-swap-error.png';
+import GenericSwapError from '/static/docs/static/img/0x-swap-api/generic-swap-error.png';
 
 <center>
     <img src={GenericSwapError} width="60%"/>
@@ -68,7 +68,7 @@ Decide how to best display the buy/sell taxes for tokens directly in the UI to i
 Example 1: Sell token (FLOKI) has a sell tax. See live trade [here](https://matcha.xyz/tokens/ethereum/eth?buyChain=1&buyAddress=0xcf0c122c6b73ff809c693db761e7baebe62b6a2e&sellAmount=1)
 
 ```mdx-code-block
-import MatchaBuyTaxUI from '/static/img/0x-swap-api/matcha-buy-tax-ui.png';
+import MatchaBuyTaxUI from '/static/docs/static/img/0x-swap-api/matcha-buy-tax-ui.png';
 
 <center>
     <img src={MatchaBuyTaxUI} width="30%"/>
@@ -78,7 +78,7 @@ import MatchaBuyTaxUI from '/static/img/0x-swap-api/matcha-buy-tax-ui.png';
 Example 2: Both buy (SMI) and sell tokens (FLOKI) have buy and sell taxes, respectively. See live trade [here](https://matcha.xyz/tokens/ethereum/0xcd7492db29e2ab436e819b249452ee1bbdf52214?sellAmount=1&buyChain=1&buyAddress=0xcf0c122c6b73ff809c693db761e7baebe62b6a2e)
 
 ```mdx-code-block
-import MatchaBuySellTaxUI from '/static/img/0x-swap-api/matcha-buy-sell-tax-ui.png';
+import MatchaBuySellTaxUI from '/static/docs/static/img/0x-swap-api/matcha-buy-sell-tax-ui.png';
 
 <center>
     <img src={MatchaBuySellTaxUI} width="30%"/>
@@ -161,7 +161,7 @@ This approach helps users grasp the implications of taxes, reduces confusion, an
 </Tip>
 
 ```mdx-code-block
-import MatchaTransferFeeInfo from '/static/img/0x-swap-api/matcha-transfer-fee-info.png';
+import MatchaTransferFeeInfo from '/static/docs/static/img/0x-swap-api/matcha-transfer-fee-info.png';
 
 <center>
     <img src={MatchaTransferFeeInfo} width="40%"/>

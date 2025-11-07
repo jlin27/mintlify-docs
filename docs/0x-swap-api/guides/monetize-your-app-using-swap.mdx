@@ -61,10 +61,9 @@ The fee `amount` is returned in the `fees.integratorFee` object. Two recommend
 - display the `fee.integratorFee.amount` (make sure to consider the token's base units)
 - display the `swapFeeBps` and the `swapFeeToken` separately
 
-:::info
+### A Note On How `fee.integratorFee.amount` Is Calculated
 
-<details>
-<summary>A note on how <code>fee.integratorFee.amount</code> is calculated</summary>
+<Accordion title="Read more">
 
 The `amount` is calculated from (`swapFeeBps`/10000) \* `sellAmount` (in the `sellToken` base unit).
 
@@ -87,34 +86,15 @@ The fee amount would be `1000000`, which is `1` USDC.
 ...
 ```
 
-</details>
-:::
+  </Accordion>
 
 The following are examples from different apps that show these two options.
 
-```mdx-code-block
-import MonetizeSwap from '/static/img/0x-swap-api/monetize-swap.png';
+![MonetizeSwap](/docs/static/img/0x-swap-api/monetize-swap.png)
 
-<center>
-    <img src={MonetizeSwap} width="50%"/>
-</center>
-```
+![AffiliateFeeExample3](/docs/static/img/0x-swap-api/affiliate-fee-example-3.png)
 
-```mdx-code-block
-import AffiliateFeeExample3 from '/static/img/0x-swap-api/affiliate-fee-example-3.png';
-
-<center>
-    <img src={AffiliateFeeExample3} width="50%"/>
-</center>
-```
-
-```mdx-code-block
-import AffiliateFeeExample2 from '/static/img/0x-swap-api/affiliate-fee-example-2.png';
-
-<center>
-  <img src={AffiliateFeeExample2} width="60%" />
-</center>
-```
+![AffiliateFeeExample2](/docs/static/img/0x-swap-api/affiliate-fee-example-2.png)
 
 ### Pricing considerations
 
@@ -124,12 +104,12 @@ Be aware that `swapFeeBps` has a default limit of 1000 Bps for security. If your
 
 ## Option 2: Collect trade surplus
 
-:::info
+<Note>
 
 Collecting trade surplus (positive slippage) is only available for select integrators on a custom pricing plan. For assistance with setting up a custom plan, please [contact
 support](https://help.0x.org/en/articles/8230055-how-to-get-dev-support-from-the-0x-team).
 
-:::
+</Note>
 
 Trade surplus, also known as positive slippage, occurs when a user receives more tokens than their quoted amount. The `tradeSurplusRecipient` parameter lets you direct this surplus to a specific wallet. This parameter can be set in a [Swap API request](https://0x.org/docs/api) to automatically route surplus when applicable.
 
