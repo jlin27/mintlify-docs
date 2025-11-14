@@ -7,14 +7,14 @@ description: Learn about 0x API issues and error codes and how to resolve them.
 
 When working with the 0x API v2, there are two key places to check for errors:
 
-1. [**The `issues` object**](/introduction/api-issues#issues-object): This is returned in the API response when there are validation issues with a quote. It helps identify problems such as insufficient token allowance, low balances, or invalid liquidity sources that could prevent a successful swap execution.
-2. [**Error codes**](/introduction/api-issues#issues-object): These are returned when there is an issue making the API request itself, such as invalid input or authorization errors.
+1. [**The `issues` object**](/docs/introduction/faq/api-issues#issues-object): This is returned in the API response when there are validation issues with a quote. It helps identify problems such as insufficient token allowance, low balances, or invalid liquidity sources that could prevent a successful swap execution.
+2. [**Error codes**](/docs/introduction/faq/api-issues#error-codes): These are returned when there is an issue making the API request itself, such as invalid input or authorization errors.
 
 ---
 
 ## Issues Object
 
-By examining both the `issues` object for quote validation and the error codes for request failures, developers can troubleshoot and resolve issues more efficiently, ensuring smoother transaction processes.
+By examining both the [`issues` object](/api-reference/swap/getquote-allowance-holder#response-issues) for quote validation and the error codes for request failures, developers can troubleshoot and resolve issues more efficiently, ensuring smoother transaction processes.
 
 In rare cases where 0x cannot fully validate a quote, the API returns `true` in `issues.simulationIncomplete`. Developers are encouraged to check and address these issues before proceeding with the swap.
 

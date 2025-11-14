@@ -10,9 +10,7 @@ Prefer to watch a video or see a code demo instead? Jump to [0x Videos](https://
 
 ## What is Swap API?
 
-Swap API is a professional-grade DEX aggregation and smart order routing REST API that allows you to find the best price and easily submit the trade with just a few lines of code.
-
-Swap API allows you to add crypto trading in your application with just a single API integration. It finds the best real-time price across 100+ liquidity sources, both public (AMMs) and private (professional market makers), across [the supported chains](https://0x.org/docs/0x-swap-api/introduction#supported-networks).
+Swap API is a professional-grade DEX aggregation and smart order routing API that lets you add crypto trading with a single API. It sources the best real-time prices from 150+ public and private liquidity providers across [supported chains](/docs/introduction/supported-chains).
 
 <Frame>
   ![Swap API
@@ -28,28 +26,29 @@ Swap API allows you to add crypto trading in your application with just a single
 
 Swap API is designed to protect your users, streamline integration for developers, and unlock new revenue opportunities for your team.
 
-- ⛓️ **Multi-chain liquidity**: Access deep liquidity across major networks. [See supported networks](https://0x.org/docs/0x-swap-api/introduction#supported-networks).
-- 🤑 **Monetize your app**: [Earn revenue](https://0x.org/docs/developer-resources/faqs-and-troubleshooting#monetizing-your-swap-integration) through every swap with built-in fee support.
-- 🛡️ **User protection**: Our smart contracts reduce allowance risk by supporting modern standards like AllowanceHolder and Permit2 for safer token approvals.
+- ⛓️ **Multi-chain liquidity**: Tap into deep liquidity across major networks. See [supported chains](/docs/introduction/supported-chains).
+- 🤑 **Built-in monetization**: [Earn fees](/docs/0x-swap-api/guides/monetize-your-app-using-swap) on every swap.
+- 🛡️ **User protection**: Our smart contracts reduce allowance risk by supporting modern standards like [AllowanceHolder](/docs/core-concepts/contracts#allowanceholder-recommended) and [Permit2](/docs/core-concepts/contracts#permit2-advanced-use-only) for safer token approvals.
 - ↩️ **Reliable execution**: We offer some of the [lowest revert rates](https://twitter.com/0xProject/status/1750927465483289000) in the industry.
-- 💰 **Exclusive RFQ liquidity**: Access off-chain liquidity with 0 slippage for **RFQ orders**. [Learn how RFQ works](https://0x.org/docs/0x-swap-api/advanced-topics/about-the-rfq-system).
-- 🚀 **Developer-friendly**: Easy to integrate and customizable to your use case. Find the best price to buy DAI with WETH with the following request:
+- 💰 **Exclusive RFQ liquidity**: Access private, off-chain [RFQ quotes](http://localhost:3000/docs/0x-swap-api/advanced-topics/about-the-rfq-system) with **0 slippage**.
+- 🚀 **Developer-friendly**: Easy to integrate, customizable, and designed to find the best price with a single request.
 
 ## Try it out
 
-Run this curl request to see a live quote response for selling 100,000 WETH to buy DAI:
+Run the request below to get a live quote for selling 100,000 WETH for DAI:
 
 ```bash
-// Sell 100,000 WETH for DAI
-// Taker address is vitalik.eth
-// Replace "YOUR_API_KEY" with your actual API key from https://dashboard.0x.org/create-account
+# Sell 100,000 WETH for DAI
+# Taker address is vitalik.eth
+# Replace "YOUR_API_KEY" with your actual API key from https://dashboard.0x.org/create-account
 curl --request GET \
   --url "https://api.0x.org/swap/allowance-holder/quote?sellAmount=100000000000000000000000&taker=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&chainId=1&sellToken=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2&buyToken=0x6b175474e89094c44da98b954eedeac495271d0f" \
   --header "0x-api-key: YOUR_API_KEY" \
   --header "0x-version: v2"
 ```
 
-You will receive a response that looks like this:
+You’ll receive an unsigned Ethereum transaction that can be [signed and submitted](/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api#4-submit-the-transaction) directly to a node.
+Learn more about the response parameters in the [API docs](/api-reference/swap/getprice-allowance-holder).
 
 <Accordion title="Expand to see response">
 ```bash
@@ -340,11 +339,10 @@ You will receive a response that looks like this:
 }
 ```
 </Accordion>
-This is a valid unsigned Ethereum transaction that can be [signed and submitted directly to a node](https://0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api#4-send-the-transaction-to-the-network) to complete the swap. Read more about the parameters [here](https://0x.org/docs/api#tag/Swap).
 
 ## How does it work?
 
-Swap API is a professional-grade DEX aggregation and smart order routing API. Using the API, developers can easily and reliably tap into aggregated multi-chain DEX liquidity. Swap API finds the best executed price across 150+ liquidity sources, both public (AMMs) and private (professional market makers), across a growing number of blockchains
+Swap API is a professional-grade DEX aggregator and smart order-routing API. It pulls prices from 150+ liquidity sources—both public AMMs and private market makers—across multiple blockchains to return the best executable price.
 
 Below is a high-level diagram showing how Swap API works under the hood:
 
@@ -353,11 +351,11 @@ Below is a high-level diagram showing how Swap API works under the hood:
   Diagram](https://0x.org/docs/assets/images/swap-api-diagram-b557e01e96f8612c8da768aab6a0e1b6.png)
 </Frame>
 <Steps>
-  <Step title="Retail Trader Requests a quote"></Step>
-  <Step title="Swap API simultaneously (a) retrieves quote from AMM and (b) requests quotes from Market Makers"></Step>
-  <Step title="Market Makers responds with signed quote at their discretion"></Step>
-  <Step title="Swap API aggregates the quotes it has received and compares the prices. It returns the best price to the Retail Trader."></Step>
-  <Step title="If the Retail Trader likes the quote, the Retail Trader signs the order. Swap API sends the signed order to the blockchain to be settled by the 0x Protocol."></Step>
+  <Step title="A user requests a quote."></Step>
+  <Step title="Swap API simultaneously (a) fetches a quote from AMM and (b) requests quotes from market makers"></Step>
+  <Step title="Market makers responds with signed quote at their discretion"></Step>
+  <Step title="Swap API aggregates all quotes, compares them, and returns the best price.."></Step>
+  <Step title="If the user accepts, the signed order is submitted on-chain and settled via the 0x."></Step>
 </Steps>
 For more details about how 0x orders are executed, check out [How does 0x
 work?](https://0x.org/docs/introduction/introduction-to-0x#how-does-0x-work)
@@ -394,47 +392,6 @@ Swap and Gasless v2 APIs are currently supported on the following chains. Select
 
 ## Get Started
 
-<Note>
-  To create an account, and get your live API keys to access 0x APIs, visit the
-  **[0x Dashboard](https://go.0x.org/create-account-txrelay-z)**.
-</Note>
+Create an account and get live API keys on the [0x Dashboard](https://dashboard.0x.org/apps).
 
-Now that you're familiar with what Swap API offers, read [Get started with Swap API](https://0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api) to get started or choose one of the resources below.
-
-### Code Examples
-
-<CardGroup>
-<Card title="0x Next.js Demo App" href="https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-next-app" horizontal/>
-<Card title="Swap API Headless Example" href="https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-headless-example" horizontal/>
-
-</CardGroup>
-### Guides
-
-<CardGroup>
-  <Card
-    title="Get started with Swap API"
-    href="https://0x.org/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api"
-    horizontal
-  />
-  <Card
-    title="How to Build a Token Swap DApp with Swap API"
-    href="https://0x.org/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs"
-    horizontal
-  />
-</CardGroup>
-### API Reference
-
-<CardGroup>
-  <Card
-    title="Swap API Reference"
-    href="/docs/api-reference/Swap/operation/swap_allowanceHolder_getPrice"
-    horizontal
-  />
-</CardGroup>
-
-### FAQs
-
-<CardGroup>
-<Card title="FAQs & Troubleshooting" href="https://0x.org/docs/developer-resources/faqs-and-troubleshooting" horizontal/>
-
-</CardGroup>
+Next, [Get Started with Swap API](/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api).

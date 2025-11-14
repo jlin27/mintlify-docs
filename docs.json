@@ -50,13 +50,9 @@
               },
               "docs/introduction/supported-chains",
               "docs/introduction/demo-apps",
-              {
-                "group": "Need Help?",
-                "pages": [
-                  "docs/introduction/faq/faq",
-                  "docs/introduction/faq/api-issues"
-                ]
-              }
+              "docs/introduction/faq/faq",
+              "docs/introduction/faq/api-issues"
+        
             ]
           },
           {
