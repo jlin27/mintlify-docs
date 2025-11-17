@@ -1,20 +1,18 @@
 ---
 title: Get Started with Permit2 (Advanced)
-description: Learn how to send your first Swap API request using Permit2.
+description: Advanced guide covering how to get started using 0x Swap API (Permit2) to securely swap ERC-20 tokens.
 ---
-
-_Advanced guide covering how to get started using 0x Swap API (Permit2) to securely swap ERC-20 tokens._
 
 <Warning>
 ⚠️ The **Permit2** flow is intended for **advanced integrators only**.
 
-If you're new to 0x Swap API or want to avoid the double-signature UX, consider using [AllowanceHolder](/0x-swap-api/guides/swap-tokens-with-0x-swap-api) instead.
+If you're new to 0x Swap API or want to avoid the double-signature UX, consider using [AllowanceHolder](/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs) instead.
 
 </Warning>
 
 ## About Swap API
 
-Swap API is a DEX aggregation and smart order routing REST API that finds the best price for crypto trades. With one API integration, you can easily add trading to your app. Swap API aggregates liquidity from 150+ sources , including AMMs and professional market makers, across [the supported chains](/0x-swap-api/introduction#supported-networks).
+Swap API is a DEX aggregation and smart order routing REST API that finds the best price for crypto trades. With one API integration, you can easily add trading to your app. Swap API aggregates liquidity from 150+ sources , including AMMs and professional market makers, across the [supported chains](/docs/introduction/supported-chains).
 
 ![Swap API UI](/docs/static/img/0x-swap-api/swap-api-ui.png)
 
@@ -30,10 +28,19 @@ This guide will cover the core steps to using Swap API, specifically using the [
 
 <Note>
   Learn about the [difference between Permit2 and AllowanceHolder in Swap
-  API](/developer-resources/faqs-and-troubleshooting#allowanceholder-and-permit2)
+  API](/docs/introduction/faq/faq#what-is-the-difference-between-using-allowanceholder-and-permit2-for-swap-api)
 </Note>
 
-## Playground
+## Try It Out
+
+### Example Code
+
+<Tip>
+  Follow along locally with the code example:
+  https://github.com/0xProject/0x-examples/tree/main/swap-v2-permit2-headless-example
+</Tip>
+
+### Playground
 
 Try this code example directly in your browser—no installation needed!
 
@@ -62,7 +69,7 @@ Every 0x API call requires an API key. [Create a 0x account](https://dashboard.0
 
 Let's find the best price!
 
-Use the [`/swap/permit2/price`](/api#tag/Swap/operation/swap::permit2::getPrice) endpoint to get an indicative price for an asset pair. This returns pricing information without creating a full order or transaction, allowing the user to browse potential prices before committing.
+Use the [`/swap/permit2/price`](/api-reference/swap/getprice-permit2) endpoint to get an indicative price for an asset pair. This returns pricing information without creating a full order or transaction, allowing the user to browse potential prices before committing.
 
 Think of `/price` as the "read-only" version of `/quote`, which you'll use in step 3.
 
@@ -70,7 +77,7 @@ Think of `/price` as the "read-only" version of `/quote`, which you'll use in st
 
 Here is an example request to sell 100 WETH for DAI using `/price`.
 
-See ([code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-headless-example/index.ts#L88-L107)).
+See ([code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-permit2-headless-example/index.ts#L88-L108)).
 
 ```js
 const priceParams = new URLSearchParams({
@@ -98,9 +105,7 @@ console.log(await priceResponse.json());
 
 You will receive a response that looks like this:
 
-<details>
-
-<summary>Expand to see response</summary>
+<Accordion title="Expand to see response">
 
 ```json
 {
@@ -251,17 +256,17 @@ You will receive a response that looks like this:
 }
 ```
 
-</details>
+</Accordion>
 
 ## 2. Set a Token Allowance
 
 Before proceeding with the swap, you'll need to set a token allowance.
 
-A [token allowance](https://tokenallowance.io/) lets a third party move your tokens on your behalf. Approve an allowance for the [Permit2 contract](https://github.com/Uniswap/permit2)—do not approve the Settler contract.
+A [token allowance](https://help.matcha.xyz/en/articles/8928084-what-are-token-allowances) lets a third party move your tokens on your behalf. Approve an allowance for the [Permit2 contract](https://github.com/Uniswap/permit2) - do not approve the Settler contract.
 
 Specify the amount of ERC20 tokens the contract can move.
 
-For implementation details, see [How to set your token allowances](/0x-swap-api/advanced-topics/how-to-set-your-token-allowances).
+For implementation details, see [how to set your token allowances](/docs/0x-swap-api/advanced-topics/how-to-set-your-token-allowances).
 
 <Danger>
 - NEVER set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
@@ -282,7 +287,7 @@ For implementation details, see [How to set your token allowances](/0x-swap-api/
 
 Here is an example of how to check and set token approvals.
 
-See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-headless-example/index.ts#L109-L133).
+See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-permit2-headless-example/index.ts#L113-L133).
 
 ```ts
 // Note abi and client setup not shown in this snippet
@@ -317,15 +322,15 @@ if (sellToken.address === CONTRACTS.ETH) {
 
 ## 3. Fetch a Firm Quote
 
-When you're ready to execute a trade, request a firm quote from the Swap API using [`/swap/permit2/quote`](/api#tag/Swap/operation/swap::permit2::getQuote). This signals a soft commitment to complete the trade.
+When you're ready to execute a trade, request a firm quote from the Swap API using [`/swap/permit2/quote`](/api-reference/swap/getquote-permit2). This signals a soft commitment to complete the trade.
 
 The response includes a full 0x order, ready for submission to the network. The Market Maker is expected to have reserved the necessary assets, reducing the likelihood of order reversion.
 
-### Example request
+### Example Request
 
 Here is an example to fetch a firm quote sell 100 WETH for DAI using `/quote`.
 
-See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-headless-example/index.ts#L135-L148).
+See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-permit2-headless-example/index.ts#L135-L148).
 
 ```javascript
 const qs = require('qs');
@@ -354,9 +359,7 @@ console.log(await response.json());
 
 You will receive a response that looks like this:
 
-<details>
-
-<summary>Expand to see response</summary>
+<Accordion title="Expand to see response">
 
 ```json
 {
@@ -571,13 +574,15 @@ You will receive a response that looks like this:
 }
 ```
 
-</details>
+</Accordion>
 
 ## 4. Sign the Permit2 EIP-712 Message
 
 Now that we have our quote, the next step is to sign and append the necessary data before submitting the order to the blockchain.
 
-First, sign the `permit2.eip712` object that we received from the [quote response](#example-response-1).
+First, sign the `permit2.eip712` object that we received from the quote reponse.
+
+See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-permit2-headless-example/index.ts#L150-L158).
 
 ```js
 // Sign permit2.eip712 returned from quote
@@ -585,12 +590,14 @@ let signature: Hex;
 signature = await signTypedData(quote.permit2.eip712);
 ```
 
-## 5. Append signature length and signature data to transaction.data
+## 5. Append Signature Length and Signature Data to transaction.data
 
 Next, append the signature length and signature data to `transaction.data`. The format should be `<sig len><sig data>`, where:
 
 - `<sig len>`: 32-byte unsigned big-endian integer representing the length of the signature
 - `<sig data>`: The actual signature data
+
+See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-permit2-headless-example/index.ts#L160-L175).
 
 ```js
 import { concat, numberToHex, size } from "viem";
@@ -615,7 +622,7 @@ Finally, submit the transaction using your preferred web3 library. In this examp
 
 This sends the prepared transaction data, including the Permit2 signature, to the blockchain.
 
-See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-headless-example/index.ts#L204-L221).
+See [code example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-permit2-headless-example/index.ts#L177-L198).
 
 ```ts
 const signedTransaction = await client.signTransaction({
@@ -635,11 +642,10 @@ const hash = await client.sendRawTransaction({
 });
 ```
 
-## See also
+## Learn More
 
-This wraps up the Swap API quickstart. See the links below for starter projects.
+This wraps up the Swap API Permit2 quickstart. See the links below for starter projects.
 
-- [(Code) Swap API Permit2 headless example](https://github.com/0xProject/0x-examples/tree/main/swap-v2-headless-example)
-- [(Code) Next.js 0x Demo App](https://github.com/0xProject/0x-examples/tree/main/swap-v2-next-app)
+- [(Code) Next.js 0x Demo App](https://github.com/0xProject/0x-examples/tree/main/swap-v2-permit2-next-app)
 - [(Code) Examples Repo](https://github.com/0xProject/0x-examples)
-- [(Guide) Build a Next.js dApp with 0x Swap API](./build-token-swap-dapp-nextjs)
+- [(Guide) Build a Next.js dApp with 0x Swap API](/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs-permit2)

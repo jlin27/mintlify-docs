@@ -69,8 +69,8 @@
                   {
                     "group": "Permit2",
                     "pages": [
-                      "docs/0x-swap-api/guides/build-token-swap-dapp-nextjs-permit2",
-                      "docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api-permit2"
+                      "docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api-permit2",
+                      "docs/0x-swap-api/guides/build-token-swap-dapp-nextjs-permit2"
                     ]
                   }
                 ]

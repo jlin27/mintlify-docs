@@ -3,21 +3,25 @@ title: Build a Token Swap App (AllowanceHolder)
 description: Walkthrough how to build a Next.js with 0x Swap API
 ---
 
-This guide gives you a tour of the Swap API demo app built on Next.js with AllowanceHolder. It covers the core concepts that can be easily transferred into any token swapping app.
+This guide walks through building a token swap app in **Next.js** using the **0x Swap API (AllowanceHolder)**.
 
-<Tip>
-  ⚡️ Quicklink: Swap API v2 AllowanceHolder [demo
-  repo](https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-headless-example)
-</Tip>
+It highlights the core concepts used in production apps like [Matcha.xyz](https://matcha.xyz/) and can be adapted to any swap interface.
 
-## What we will build
+## Try it Out
 
-This example app demonstrates the same core principles used in production app such as [Matcha.xyz](https://matcha.xyz/):
+<Note>
+  Code for the demo app used in this tutorial:
+  https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-next-app
+</Note>
 
-- Fetch indicative prices via `/swap/allowance-holder/price`
-- Get firm quotes via `/swap/allowance-holder/quote`
-- Approve token allowances for AllowanceHolder
-- Submit transactions
+## What We’re Building
+
+This example demonstrates:
+
+- Fetching indicative prices via `/swap/allowance-holder/price`
+- Fetching firm executable quotes via `/swap/allowance-holder/quote`
+- Approving ERC20 allowances for AllowanceHolder
+- Submitting swap transactions on-chain
 
 ![](/docs/static/docs/static/img/0x-swap-api/swap-v2-demo-app.png)
 
@@ -43,22 +47,20 @@ You should be familiar with:
 - [viem](https://viem.sh/)
 - Swap API concepts ([intro](../introduction) or [video](https://www.youtube.com/watch?v=APXjSGLaoRw))
 
-We’ll build our token swap app on [Base](https://www.base.org/), but you can adapt it to any [supported chain](/docs/introduction/supported-chains).
+This demo uses **Base**, but works on all [supported chains](/docs/introduction/supported-chains).
 
 ## Core Concepts
 
-To build our swap app, we’ll focus on:
+You'll build:
 
-- 🌈 RainbowKit
-- 🏷 PriceView
-- 💸 QuoteView
-- 🪙 Token lists
+- 🌈 RainbowKit for wallet connection
+- 🏷 PriceView (indicative pricing)
+- 💸 QuoteView (firm quotes + submit transaction)
+- 🪙 Token list management
 
-### What is it?
+These components form the foundation of most swap apps:
 
-These components are transferable to almost any token swapping app being built.
-
-![Swap v2 dApp Core Concepts](/docs/static/docs/static/img/0x-swap-api/swap-v2-core-concepts-allowance-holder.png)
+![Swap v2 dApp Core Concepts](/docs/static/img/0x-swap-api/swap-v2-core-concepts-allowance-holder.png)
 
 ## 🌈 RainbowKit
 
@@ -90,58 +92,40 @@ const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string; /
 
 ### What is it?
 
-This component is for users to browse for a price without committing to a trade, aka, get the indicative price. An indicative price is used when users just want to check the price they could receive on a trade, for this we will use the [/swap/allowance-holder/price](/api#tag/Swap/operation/swap::allowanceHolder::getPrice) endpoint.
+PriceView displays indicative pricing using[/swap/allowance-holder/price](/api#tag/Swap/operation/swap::allowanceHolder::getPrice). Indicative pricing is for users to browse for a price without committing to a trade.
 
-Later on in the QuoteView, when a user is actually ready to make a trade, the app will ping [/swap/allowance-holder/quote](/api#tag/Swap/operation/swap::allowanceHolder::getQuote) which returns an order that is ready to submitted on-chain.
+Indicative prices:
 
-This is also important because `/quote` returns back an order in which a Market Maker must commit their assets to settle that trade. So if we ping `/quote` too much when we really are just asking for a price and not ready to submit an order, then this can clog up the system!
+- Do not reserve liquidity
+- Are ideal for browsing or real-time updates
+- Avoid unnecessary `/quote` calls, which should only be used when the user intends to trade
+
+Firm quotes are fetched later in QuoteView.
 
 ### UX flow
 
-1. **Select tokens**
-
-   - User chooses the **sell token** and **buy token** from token selectors.
-
-2. **Enter amount**
-
-   - User inputs the **sellAmount**.
-   - The app immediately fetches a **price quote** (even if no wallet is connected).
-   - The UI displays the corresponding **buyAmount**.
-
-3. **Connect wallet**
-
-   - User connects via RainbowKit.
-   - If needed, they are prompted to switch to the correct network (e.g. Base).
-
-4. **Approve token allowance**
-
-   - If the user has enough of the sell token, the button changes to **“Approve”**.
-   - Approving grants the required allowance to AllowanceHolder so the app can transfer ERC-20 tokens on the user’s behalf.
-   - Users can set either the default (large) allowance or a custom amount equal to their balance.
-
-5. **Review and confirm**
-   - Once the allowance is approved, the button changes to **“Review Trade”**.
-   - User reviews final trade details and proceeds to confirm the swap.
+1. Select tokens
+2. Enter amount → triggers indicative price fetch
+3. Connect wallet (RainbowKit handles network switching)
+4. Approve allowance for AllowanceHolder
+5. Review trade → proceed to QuoteView
 
 ![](/docs/static/img/0x-swap-api/swap-demo-price-view.gif)
 
 ### Code
 
-The code for this component lives in [/app/components/price.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/price.tsx). The logic for when the component appears in UI is in [/app/page.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/page.tsx), it is displayed if the user has not clicked "Review Trade" to finalize the price.
+- Component: [/app/components/price.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/price.tsx)
+- Rendered when user has **not** clicked "Review Trade" (controlled here in [page.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/page.tsx#L35-L40))
+- Price requests are routed through [/app/api/price/route.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/api/price/route.ts) to avoid exposing your API key
 
-#### Fetch price with /swap/allowance-holder/price
+#### Fetch Indicative Price
 
-The price is fetched using [/swap/allowance-holder/price](/api#tag/Swap/operation/swap::allowanceHolder::getPrice). This API request is wrapped behind [/app/api/price/route.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/api/price/route.ts) and triggered in the UI by `useEffect` here in [/app/components/price.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-next-app/app/components/price.tsx#L91-L135)
-
-Wrapping our API key protects it because all API requests are viewable by if someone inspects the browser, but we don’t want them inspecting an finding our keys. Instead, when the user queries for an indicative price, it pings our API setup in [/app/api/price/route.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-next-app/app/api/price/route.ts) and that pings the Swap API using our API key in the header.
-
-This example uses a demo key which should not be used in production or outside of this demo; however, you can get your own key by going from the 0x Dashboard and following the [Getting Started guide](https://0x.org/docs/introduction/getting-started).
-
-In addition, we use Next.js App Router's built-in data fetching pattern and the [useEffect](https://react.dev/reference/react/useEffect) hook to make the request. By using [useEffect](https://react.dev/reference/react/useEffect), we will get a stream of data updates constantly and automatically, and the UI will quickly respond to any changes, such as when the user inputs a new `sellAmount`.
+- Triggered via [useEffect](https://react.dev/reference/react/useEffect) in [/app/components/price.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/price.tsx#L139-L157) whenever tokens, amounts, or chain changes
+- Price requests are routed through [/app/api/price/route.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/api/price/route.ts) to avoid exposing your API key
 
 #### Token Allowances & Approvals
 
-:::warning
+<Danger>
 
 Important: Read Before Using 0x API
 
@@ -151,19 +135,19 @@ Important: Read Before Using 0x API
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
-:::
+</Danger>
 
 Before placing a trade on the PageView, users must set allowances on all tokens involved. A token allowance lets a third party move funds on your behalf. Essentially, you permit them to move your tokens.
 
-In our case, we want to approve an allowance for AllowanceHolder contract to trade our ERC20 tokens for us. To do this, we need to approve a specific allowance, allowing this contract to move a certain amount of our ERC20 tokens on our behalf. Read more about [token allowances](../advanced-topics/how-to-set-your-token-allowances)
+In our case, we want to approve an allowance for AllowanceHolder contract to trade our ERC20 tokens for us. To do this, we need to approve a specific allowance, allowing this contract to move a certain amount of our ERC20 tokens on our behalf. Read more about [token allowances](../advanced-topics/how-to-set-your-token-allowances).
 
 ![token allowance ui](/docs/static/img/0x-swap-api/token-allowance-ui.png)
 
-The logic to check if the user has approved a token allowance the selected sell token is setup in [/app/components/price.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/price.tsx#L382-L455).
+The logic to check if the user has approved a token allowance the selected sell token is setup in [/app/components/price.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/price.tsx#L485-L582).
 
-1. First, we need to check if the spender (AllowanceHolder) has an allowance already. We can use wagmi's `useReadContract()` hook to read from the sellToken's "allowance" function.
-2. If there is no allowance, then we will write an approval to the sellToken's smart contract using wagmi's `useSimulateContract()` and `useWriteContract()`.
-3. Lastly, use wagmi's `useWaitForTransactionReceipt()` to wait for the approval transaction to complete
+1. Read existing allowance with `useReadContract`
+2. If insufficient → simulate + write approval (`useSimulateContract`, `useWriteContract`)
+3. Wait for confirmation using `useWaitForTransactionReceipt`
 
 <Tip>
   Be aware that approvals cost gas. _Looking for a gasless approach? Check out
@@ -180,25 +164,38 @@ The logic to check if the user has approved a token allowance the selected sell 
 
 ### What is it?
 
-The QuoteView component provides users with an overview of the transaction details before executing the token swap. Earlier in the PriceView, we provided users an indicative price because they were just browsing for pricing information, so did not need a full 0x order. On the QuoteView, users are ready to fill the order, so we need to provide them a firm quote, and the Market Makers can know to reserve the proper assets to settle the trade.
+QuoteView displays a firm, executable quote returned from [/swap/allowance-holder/quote](/api-reference/swap/getquote-allowance-holder).
+
+Firm quotes:
+
+- Reserve liquidity from market makers
+- Contain a fully executable order
 
 ![swap demo quoteview](/docs/static/img/0x-swap-api/swap-demo-quoteview-affiliate-fee.png)
 
-### UI/UX Walk-through
+### UX Flow
 
-- Displays the **sell** and **buy Amounts** that the user pays and receives, respectively
-  - I’ve formatted it but you can get the symbols, decimal points for formatting from the token list. The amounts are the buy and sell Amounts returned from the quote
-- From here, the user can **“Place Order”** which creates, signs, and sends a new transaction to the network.
+- Shows final **sell** and **buy** amounts
+- Metadata (symbols, decimals) comes from the token list
+- User clicks "Place Order" to sign and broadcast the transaction
 
 ### Code
 
-The code for this component lives in [/app/components/quote.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/quote.tsx). The logic for when the component appears in UI is in [/app/page.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/page.tsx), it is displayed if the user has approved the token allowance, and clicked "Review Trade" to finalize the trade selection.
+- Component: [/app/components/quote.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/quote.tsx)
+- Rendered after:
+  1. Allowance approval
+  2. Clicking Review Trade
 
-#### Submit the transaction to the network
+#### Fetch Firm Quote
+
+- Triggered via [useEffect](https://react.dev/reference/react/useEffect) in [/app/components/quote.tsx](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/quote.tsx#L52-L64) whenever tokens, amounts, or chain changes
+- Price requests are routed through [/app/api/quote/route.ts](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/api/quote/route.ts) to avoid exposing your API key
+
+#### Submit Transaction
 
 The last step is to submit the transaction with all the required parameters using your preferred web3 library (e.g. wagmi, viem, ethers.js, web3.js). In this example, we use wagmi's [useSendTransaction](https://wagmi.sh/react/api/hooks/useSendTransaction).
 
-Pass the required params we get from the quote response to `sendTransaction`. [Code here](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/quote.tsx).
+Pass the required params we get from the quote response to `sendTransaction`. [Code here](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/quote.tsx#L192-L205).
 
 ```javascript
 sendTransaction({
@@ -214,47 +211,54 @@ sendTransaction({
 
 ### What is it?
 
-Token Lists allow users to select their desired tokens for swapping. For ERC20 tokens, these lists typically include crucial metadata - such as the token names (Wrapped Ether), symbol (ETH), address, and logoURI - which can be leveraged by apps such as ours.
+Token Lists provide curated sets of ERC20 tokens—along with their associated metadata—that applications can use when enabling asset selection (e.g., choosing tokens to swap). These lists typically include:
 
-Thankfully there are several established sources that curate and open-source this information. As developers, we can choose to ingest the entire list or customize our own token lists based off of these sources.
+- **Name** (e.g., _Wrapped Ether_)
+- **Symbol** (e.g., _ETH_)
+- **Contract address**
+- **logoURI**
 
-### Notable lists
+Developers can either consume an existing list in full or create a customized list derived from one or more established sources.
 
-- Trust Wallet: https://github.com/trustwallet/assets/tree/master/blockchains
-- Polygon Assets github: https://github.com/maticnetwork/polygon-token-assets/tree/main/assets/tokenAssets
-- Tokenlists: https://tokenlists.org/
-- Coin Gecko: https://tokenlists.org/token-list?url=https://tokens.coingecko.com/uniswap/all.json
+### Commonly Used Token List Sources
+
+- **QuickNode Token API**: https://www.quicknode.com/token-api
+
+- **Trust Wallet Assets**: https://github.com/trustwallet/assets/tree/master/blockchains
+
+- **Polygon Token Assets**: https://github.com/maticnetwork/polygon-token-assets/tree/main/assets/tokenAssets
+
+- **TokenLists Registry**: https://tokenlists.org/
+
+- **CoinGecko Token List**: https://tokenlists.org/token-list?url=https://tokens.coingecko.com/uniswap/all.json
 
 ### Code
 
-In our demo, we curated a token list in [`/src/constants.ts`](https://github.com/0xProject/0x-examples/blob/main/swap-v2-next-app/src/constants.ts). In production level apps, it's common practice to maintain a token list since some apps don't support _all_ available tokens.
+The demo uses a curated a token list in [`/src/constants.ts`](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/src/constants.ts). In production level apps, it's common practice to maintain a token list since some apps don't support _all_ available tokens.
 
-## Monetize your swap integration
+## Monetize Your Swap Integration
 
-And as your business grows, Swap API offers low-friction ways to monetize your products.
+Swap API provides two built-in ways to monetize your swap integration—available on both [free and paid plan](https://0x.org/pricing):
 
-Web3 teams can leverage Swap API to unlock new revenue streams by easily tapping into affiliate fee and trade surplus features. Regardless of whether you’re on a [free or paid plan](https://0x.org/pricing), monetization options are available to all integrators.
+- **Affiliate fees:** Earn a commission on each trade (demonstrated in this example app).
+- **Trade surplus:** trade surplus (i.e. positive slippage) <sup>1</sup>
 
-Swap API offers two monetization options out-of-the-box:
+For implementation details and pricing considerations, see the [how to monetize your app using 0x Swap API](./monetize-your-app-using-swap).
 
-- Collect affiliate fees (i.e. trading fee or commission) ← shown in this demo app
-- Collect trade surplus <sup>1</sup> (i.e. positive slippage)
-
-For more details about monetizing, check out the [How to monetize your app using 0x Swap API](./monetize-your-app-using-swap) guide which discusses pricing considerations and shows code samples for how to easily implement these options.
-
-<sup>1</sup> Trade surplus is available only to select integrators on a custom pricing
-plan. For assistance with setting up a custom plan, please contact support.
-
-## Try it out
-
-<Note>
-  Here is code for the demo app, feel free to use it to get started quickly for
-  your own project:
-  https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-next-app
-</Note>
+<sup>1</sup> Trade surplus is available only to select integrators on a custom plan.
+Contact support for access.
 
 ## Conclusion
 
-By following the best practices outlined in this blog post, you can create a user-friendly and effective app that enables trustless token swapping on our [supported chains](../introduction#supported-networks).
+By following the best practices outlined in this blog post, you can create a user-friendly and effective app that enables trustless token swapping on our [supported chains](../introduction#supported-chains).
+
+You now have a fully functional swap workflow that demonstrates:
+
+- Indicative pricing
+- Firm quotes
+- Setting token allowances
+- Submitting transactions on-chain
+
+This pattern works across all [supported chains](/docs/introduction/supported-chains)..
 
 Happy swapping!
