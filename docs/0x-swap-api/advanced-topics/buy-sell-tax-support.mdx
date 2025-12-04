@@ -7,13 +7,13 @@ description: Learn best practices for how to implement 0x's buy/sell tax support
 
 Fee-on-Transfer (FoT) tokens, which impose automatic _Transfer Fees_ or _Buy/Sell Taxes_, can [complicate transactions](https://0x.org/post/0x-v2-buy-sell-tax-swap-support), leading to inaccurate quotes and failed swaps. This guide explains how 0x v2 addresses these challenges with real-time detection and tax calculation, ensuring accurate quotes and reliable on-chain execution for a smoother user experience.
 
-<Info>
+<Note>
 FoT (Fee-on-Transfer) Tokens are a category of tokens with Custom Properties either:
 
 - a **Transfer Fee** (user pays a fee any time the token is transferred to another wallet) or,
 - a **Buy/Sell Tax** (user pays a fee as a % of a swap when the token is bought or sold).
 
-</Info>
+</Note>
 
 ## The Problem
 
@@ -30,17 +30,11 @@ When handling buy/sell tax tokens, integrators face two main challenges:
 
 - **User Experience**: Users must know if a token has a buy/sell tax upfront. Without reliable detection, integrators may adjust slippage to account for fees, but setting slippage too low risks reverts, while setting it too high exposes users to MEV attacks, undermining trust in your app.
 
-```mdx-code-block
-import GenericSwapError from '/static/docs/static/img/0x-swap-api/generic-swap-error.png';
-
-<center>
-    <img src={GenericSwapError} width="60%"/>
-</center>
-```
+![Generic Swap Error](/docs/static/img/0x-swap-api/generic-swap-error.png)
 
 ## How 0x Solves the Problem
 
-0x v2 API provides a robust solution:
+0x v2 API provides a robust solution, available on both Swap API and Gasless API:
 
 - **Automatic Detection & Optimized Routing**: 0x detects buy/sell tax tokens and optimizes trade routes, minimizing errors and transaction reverts. The API automatically includes the token’s buy/sell tax in its response.
 
@@ -51,7 +45,7 @@ import GenericSwapError from '/static/docs/static/img/0x-swap-api/generic-swap-e
 ## Implementation Best Practices
 
 <Tip>
-⚡️ Explore the Swap API v2 [demo code repo](https://github.com/0xProject/0x-examples/tree/main/swap-v2-next-app) to see how to display the buy/sell tax for a selected token. For the specific code changes, check out this [PR](https://github.com/0xProject/0x-examples/pull/17).
+⚡️ Explore the Swap API v2 [demo code repo](https://github.com/0xProject/0x-examples/blob/main/swap-v2-allowance-holder-next-app/app/components/price.tsx#L362-L375) to see how to display the buy/sell tax for a selected token.
 
 ⚡️ See how [Matcha displays buy/sell tax](https://matcha.xyz/tokens/ethereum/eth?sellAmount=1&buyChain=1&buyAddress=0xcf0c122c6b73ff809c693db761e7baebe62b6a2e) in their UI.
 
@@ -89,7 +83,7 @@ import MatchaBuySellTaxUI from '/static/docs/static/img/0x-swap-api/matcha-buy-s
 
 <Accordion title="Step 2: Utilize API Response Parameters">
 
-Use the `tokenMetadata` object returned in the `/price` and `/quote` endpoints for both [Swap and Gasless API calls](https://0x.org/docs/api). This object contains the buy/sell tax information for the tokens involved in the swap.
+Use the `tokenMetadata` object returned in the `/price` and `/quote` endpoints for both [Swap and Gasless API calls](/api-reference/swap/getprice-allowance-holder). This object contains the buy/sell tax information for the tokens involved in the swap.
 
     Example response:
 

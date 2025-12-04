@@ -50,8 +50,8 @@
               },
               "docs/introduction/supported-chains",
               "docs/introduction/demo-apps",
-              "docs/introduction/faq/faq",
-              "docs/introduction/faq/api-issues"
+              "docs/introduction/faq",
+              "docs/introduction/api-issues"
         
             ]
           },

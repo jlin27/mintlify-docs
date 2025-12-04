@@ -13,9 +13,15 @@ Enabling Gasless API in your app allows you to:
 - improve your conversion funnel drop-offs due to insufficient gas, and
 - set yourself up to easily onboard the next wave of users into Web3.
 
-Make sure to read [Understanding Gasless API](./understanding-gasless-api) for an in-depth understanding of how it works, key terms, and technical flow charts for how to implement in-app.
+Make sure to read [How it Works - Gasless API](/docs/gasless-api/understanding-gasless-api) for an in-depth understanding of how it works, key terms, and technical flow charts for how to implement in-app.
 
-## Playground
+## Try It Out
+
+### Example Code
+
+Follow along locally with the example code: https://github.com/0xProject/0x-examples/tree/main/gasless-v2-headless-example
+
+### Playground
 
 Try this code example directly in your browser—no installation needed!
 
@@ -26,17 +32,23 @@ Try this code example directly in your browser—no installation needed!
   src="https://replit.com/@0xproject/0x-Gasless-v2-Headless-Example?embed=true"
 ></iframe>
 
-## Gasless swaps in 4 Steps
+## Gasless Swaps in 4 Steps
 
 0. Get a 0x API key
 1. Get an indicative price using `/gasless/price`
 2. Get a firm quote using `/gasless/quote`
 3. Submit the transaction using `/gasless/submit`
+
    a. Sign the gasless approval object (if applicable)
+
    b. Sign the trade object
+
    c. Split the signatures
+
    d. Package signed objects into a format that can be POST to /submit
+
    e. Compute trade hash
+
 4. Check the trade status using `/gasless/status/{tradeHash}`
 
 <Tip>
@@ -45,9 +57,9 @@ Try this code example directly in your browser—no installation needed!
   to see these steps in action
 </Tip>
 
-## 0. Before you begin
+## 0. Before You Begin
 
-### Get a 0x API key
+### Get a 0x API Key
 
 Every call to a 0x API must include a 0x API key. Get one from the [0x Dashboard](https://go.0x.org/create-account-txrelay-z).
 
@@ -55,24 +67,15 @@ Every call to a 0x API must include a 0x API key. Get one from the [0x Dashboard
 
 You will be able to enable Gasless API in your app from "App Settings" in your [0x dashboard](https://dashboard.0x.org/). You can enable it for any active apps you have (see screenshot).
 
-```mdx-code-block
-import CreateAppScreen from '/static/docs/static/img/introduction/0x-dashboard-create-app-screen.png';
+![CreateAppScreen](/docs/static/img/introduction/0x-dashboard-create-app-screen.png)
 
-<center>
-    <img src={CreateAppScreen} width="70%"/>
+## 1. Fetch Price
 
-</center>
-```
+Use [`/gasless/price`](/api-reference/gasless/getprice) to get the indicative price. This is used when the user is just _browsing_ for the price they could receive on the specified asset pair, but they are not ready to submit the quote yet.
 
-## 1. Get an indicative price
+This endpoint responds with pricing information, but the response does not contain a full 0x order, so it does not constitute a full transaction that can be submitted to the Ethereum network (you must use [`/gasless/quote`](/api-reference/gasless/getquote) for this). Think of `/price` as the the "read-only" version of `/quote`.
 
-Use [`/gasless/price`](/api#tag/Gasless/operation/gasless::getPrice) to get the indicative price. This is used when the user is just _browsing_ for the price they could receive on the specified asset pair, but they are not ready to submit the quote yet.
-
-This endpoint responds with pricing information, but the response does not contain a full 0x order, so it does not constitute a full transaction that can be submitted to the Ethereum network (you must use [`/gasless/quote`](/api#tag/Gasless/operation/gasless::getQuote) for this). Think of `/price` as the the "read-only" version of `/quote`.
-
-See other user flows [here](./understanding-gasless-api#technical-flow-charts).
-
-### Example request
+### Example Request
 
 Here is an example indicative price request to sell 100 [USDC](https://basescan.org/address/0x833589fcd6edb6e08f4c7c32d4f71b54bda02913) for [WETH](https://basescan.org/token/0x4200000000000000000000000000000000000006) using `/price` on Base (8453):
 
@@ -86,7 +89,7 @@ https://api.0x.org/gasless/price                      // Request an indicative p
 --header '0x-version: v2'                             // API version
 ```
 
-### Sample cURL request
+### Sample cURL Request
 
 ```bash
 curl --request GET \
@@ -95,8 +98,9 @@ curl --request GET \
   --header '0x-version: v2'
 ```
 
-### Example response
+### Example Response
 
+<Accordion title="You will see a response like this">
 ```json
 {
   "blockNumber": "17225085",
@@ -152,17 +156,18 @@ curl --request GET \
   "zid": "0x0428a9c5f42998e4e00237fe"
 }
 ```
+</Accordion>
 
-## 2. Get a firm quote
+## 2. Fetch Quote
 
-When the user has found a price they are happy with and are ready to fill a quote, they should request a firm quote from Gasless API using the [`/gasless/quote`](/api#tag/Gasless/operation/gasless::getQuote) endpoint. At this point, the taker is making a soft commitment to fill the suggested orders, and understands they may be penalized by the [Market Maker](../../developer-resources/glossary#maker) if they do not.
+When the user has found a price they are happy with and are ready to fill a quote, they should request a firm quote from Gasless API using the [`/gasless/quote`](/api-reference/gasless/getquote) endpoint. At this point, the taker is making a soft commitment to fill the suggested orders, and understands they may be penalized by the [Market Maker](../../developer-resources/glossary#maker) if they do not.
 
 <Tip>
   Quotes expire in ~ 30s in order to ensure freshness. Make sure to take this
   into account when building your app with a timer and/or automatic refresh.
 </Tip>
 
-### Example request
+### Example Request
 
 Here is an example to fetch a firm quote to sell 100 USDC (supports Permit) for WETH (does not support Permit) using `/quote` on Polygon (137):
 
@@ -176,7 +181,7 @@ https://api.0x.org/gasless/quote                       // Request a fiirm quote
 --header '0x-version: v2'                              // API version
 ```
 
-### Sample cURL request
+### Sample Request
 
 ```bash
 curl --request GET
@@ -186,7 +191,9 @@ https://api.0x.org/gasless/quote?chainId=137&buyToken=0x0d500B1d8E8eF31E21C99d1D
 
 ```
 
-### Example response
+### Example Response
+
+<Accordion title="You will see a response like this">
 
 ```json
 {
@@ -445,20 +452,23 @@ https://api.0x.org/gasless/quote?chainId=137&buyToken=0x0d500B1d8E8eF31E21C99d1D
 }
 ```
 
-### Response details
+</Accordion>
+
+### Response Details
 
 If liquidity is available, 2 objects may be returned:
 
-- `approval`: This is the “approval” object which contains the necessary information to process a gasless approval. See the [quote response](/api#tag/Gasless/operation/gasless::getQuote) for an example.
+- `approval`: This is the “approval” object which contains the necessary information to process a gasless approval. See the [quote response](/api-reference/gasless/getquote#option-1) for an example.
 
   - If a gasless approval is possible, this object includes all the required information to process it.
-  - If a gasless approval is **not** possible, this object will be `null`, and you must use the [standard approval flow](/0x-swap-api/advanced-topics/how-to-set-your-token-allowances). NEVER SET AN ALLOWANCE ON THE SETTLER CONTRACT.
+  - If a gasless approval is **not** possible, this object will be `null`, and you must use the [standard approval flow](/gasless-api/understanding-gasless-api#technical-flow-charts) to [set a token allowance](/docs/0x-swap-api/advanced-topics/how-to-set-your-token-allowances). NEVER SET AN ALLOWANCE ON THE SETTLER CONTRACT.
+  - You can also see all the token addresses that support gasless approvals with the [`/gasless-approval-tokens`](/api-reference/gasless/getgaslessapprovaltokens) endpoint.
 
 - `trade`: This is the "trade" object which contains the necessary information to process a gasless trade. See the quote response [here](/api#tag/Gasless/operation/gasless::getQuote).
 
-## 3. Submit transaction
+## 3. Submit Transaction
 
-When user accepts the quote and wants to submit the trade, use [`/gasless/submit`](/api#tag/Gasless/operation/gasless::submit) to send both signatures back along with the payload from `/gasless/quote`.
+When user accepts the quote and wants to submit the trade, use [`/gasless/submit`](/api-reference/gasless/submit) to send both signatures back along with the payload from `/gasless/quote`.
 
 In order to submit the trade, we must complete the following:
 
@@ -467,7 +477,7 @@ In order to submit the trade, we must complete the following:
 - [Split signatures for both signed objects](./gasless-api-technical-appendix#splitting-signatures)
 - [Package both signed objects in a format that is acceptable to POST to /submit](./gasless-api-technical-appendix#post-the-split-signatures-to-)
 
-### Example request
+### Example Request
 
 ```bash
 curl -X POST '<https://api.0x.org/gasless/submit>' --header '0x-api-key: <API_KEY>' --header '0x-version: v2' --data '{
@@ -494,7 +504,7 @@ curl -X POST '<https://api.0x.org/gasless/submit>' --header '0x-api-key: <API_KE
 }'
 ```
 
-### Example response
+### Example Response
 
 ```json
 {
@@ -504,18 +514,18 @@ curl -X POST '<https://api.0x.org/gasless/submit>' --header '0x-api-key: <API_KE
 }
 ```
 
-## 4. Check trade status
+## 4. Check Trade Status
 
-Once the user has signed, split, and submitted both signatures - gasless approval (if applicable) and gasless trade - and a `tradeHash` is returned from `/submit`, you can poll [`/gasless/status/{tradeHash}`](/api#tag/Gasless/operation/gasless::getStatus) to check the status of the trade.
+Once the user has signed, split, and submitted both signatures - gasless approval (if applicable) and gasless trade - and a `tradeHash` is returned from `/submit`, you can poll [`/gasless/status/{tradeHash}`](/api-reference/gasless/getstatus) to check the status of the trade.
 
-### Example request
+### Example Request
 
 ```bash
 curl '<https://api.0x.org/gasless/status/0x955f2009cc0fafa4f37de4ff5220a3d9028b4cf47f66bbeb09a916cc09fefbc7>' \\
 --header '0x-api-key: <API_KEY>' --header '0x-version: v2'
 ```
 
-### Example response
+### Example Response
 
 ```jsx
 // succeeded means it has been included in a block
@@ -543,14 +553,14 @@ checks:  {
 }
 ```
 
-If you receive an error response, see the [`/status` response in the Gasless API reference](/api#tag/Gasless/operation/gasless::getStatus)
+If you receive an error response, see the [`/status` response in the Gasless API reference](/api-reference/gasless/getstatus)
 
 Once the trade is successful, you can display the transaction confirmation to your user.
 
-## Learn more
+## Gasless Approval Tokens
 
-- 👉 Try this runnable [(Code) Gasless Headless Example](https://github.com/0xProject/0x-examples/tree/main/gasless-v2-headless-example) to see all these steps in action
-- [(Guide) How to integrate Gasless API](/tx-relay-api/guides/build-a-dapp-with-tx-relay-api)
-- [(Code) Next.js 0x Gasless Demo App](https://github.com/0xProject/0x-examples/tree/main/tx-relay-next-app)
-- [(Guide) Understanding Gasless API](/gasless-api/guides/understanding-gasless-api)
-- [Gasless FAQ](/gasless-api/tx-relay-faq)
+Use [`/gasless/gasless-approval-tokens`](/api-reference/gasless/getgaslessapprovaltokens) to get token addresses that support gasless approvals on each chain.
+
+## Gasless Chains
+
+Use [`/gasless/chains`](/api-reference/gasless/getgaslessapprovaltokens) to get a list of supported chains for gasless.

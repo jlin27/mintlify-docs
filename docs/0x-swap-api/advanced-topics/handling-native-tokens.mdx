@@ -20,17 +20,20 @@ For more context on native token addresses:
 ## Steps for Handling Native Tokens[​](https://0x.org/docs/0x-swap-api/advanced-topics/#steps-for-handling-native-tokens "Direct link to Steps for Handling Native Tokens")
 
 <Steps>
-<Step title="Skip the allowance check:">
-Unlike ERC-20 tokens, native tokens do not require an allowance or approval step. Therefore, you can skip the `approve()` call when preparing to send native tokens.
-</Step>
-<Step title="Set the transaction value:">
-Ensure that the `value` field in your transaction parameters accurately reflects the amount of native token (in wei) you intend to send.
-</Step>
+  <Step title="Skip the allowance check:">
+    Unlike ERC-20 tokens, native tokens do not require an allowance or approval
+    step. Therefore, you can skip the `approve()` call when preparing to send
+    native tokens.
+  </Step>
+  <Step title="Set the transaction value:">
+    Ensure that the `value` field in your transaction parameters accurately
+    reflects the amount of native token (in wei) you intend to send.
+  </Step>
 </Steps>
-<Tip>
-**Quicklink**
 
-See a full [Swap API headless example](https://github.com/0xProject/0x-examples/blob/main/swap-v2-headless-example/index.ts) that demonstrates how to handle native tokens. See the running instructions [here](https://github.com/0xProject/0x-examples/tree/main/swap-v2-headless-example).
+<Tip>
+
+See a full [Swap API headless example](https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-headless-example) that demonstrates how to handle native tokens.
 
 </Tip>
 
@@ -92,7 +95,7 @@ if (eth.address === "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE") {
 }
 ```
 
-## Wrapping and Unwrapping between ETH and WETH[​](https://0x.org/docs/0x-swap-api/advanced-topics/#wrapping-and-unwrapping-between-eth-and-weth "Direct link to Wrapping and Unwrapping between ETH and WETH")
+## Wrapping and Unwrapping between ETH and WETH
 
 Easily wrap and unwrap between ETH and WETH by requesting a swap quote by setting `sellToken` and `buyToken` as either the contract address for WETH or ETH. The swap quote returned will provide the calldata to directly interact with the WETH9 contract and not with 0x Settler contract.
 

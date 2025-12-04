@@ -7,17 +7,17 @@ To allow a third-party service—such as the 0x API—to move your ERC-20 tokens
 
 Which contract to approve depends on the API endpoint you're using:
 
-| API Endpoint                                                                        | Allowance Target Contract |
-| ----------------------------------------------------------------------------------- | ------------------------- |
-| [`/swap/allowance-holder`](/api#tag/Swap/operation/swap::allowanceHolder::getQuote) | AllowanceHolder           |
-| [`/swap/permit2`](/api#tag/Swap/operation/swap::permit2::getQuote)                  | Permit2                   |
+| API Endpoint                                                              | Allowance Target Contract |
+| ------------------------------------------------------------------------- | ------------------------- |
+| [`/swap/allowance-holder`](/api-reference/swap/getquote-allowance-holder) | AllowanceHolder           |
+| [`/swap/permit2`](/api-reference/swap/getquote-permit2)                   | Permit2                   |
 
 The wallet holding the tokens (`taker`) must approve the contract address returned in `issues.allowance.spender` or `allowanceTarget` from the `/price` or `/quote` response.
 
-<Info>
+<Note>
   No allowance is needed for wrapping/unwrapping ETH (e.g., WETH ⇄ ETH). In
   these cases, allowance is `null`.
-</Info>
+</Note>
 
 ## Allowance Target vs. Entry Point
 
@@ -96,11 +96,17 @@ const { data: receipt } = useWaitForTransactionReceipt({
 });
 ```
 
-<Info>
-  For a full implementation, see the [Swap v2 Demo
-  App](https://github.com/0xProject/0x-examples/tree/main/swap-v2-next-app) and
-  [guide](../guides/build-token-swap-dapp-nextjs#token-allowances--approvals).
-</Info>
+<Tip>
+  For a full implementation, see: 
+ - AllowanceHolder
+    - [Code example](https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-headless-example)  
+    - [Guide](http://localhost:3000/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api)
+
+- Permit2
+  - [Code example](https://github.com/0xProject/0x-examples/tree/main/swap-v2-permit2-headless-example)
+  - [Guide](http://localhost:3000/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api-permit2)
+
+</Tip>
 
 ### Using Etherscan
 

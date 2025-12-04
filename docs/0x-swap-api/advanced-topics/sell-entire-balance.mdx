@@ -9,11 +9,6 @@ When building applications that involve composable smart contract interactions, 
 
 The 0x Swap API supports these kinds of transactions through the `sellEntireBalance` parameter. It enables developers to provide an estimate of the sell amount for the quote, and then determines the actual amount to sell based on the balance of the taker at the time of execution.
 
-<Info>
-  Not building with smart contracts? Look at our [API Reference](/api#tag/Swap)
-  instead
-</Info>
-
 ### How it works
 
 To enable this feature, set the `sellEntireBalance` parameter on the API to `true` . This is supported by both our allowance-holder and permit2 endpoints.
@@ -28,7 +23,7 @@ When set to true, the taker's balance during execution is used as the `sellAmoun
 
 ### How using this feature impacts your swap
 
-- Slippage: Since the taker's balance will be lower than the `sellAmount`, ensure that the slippage tolerance is adjusted for the possible variation.
+- **Slippage:** Since the taker's balance will be lower than the `sellAmount`, ensure that the slippage tolerance is adjusted for the possible variation.
 - **Routing**: Routing will be optimized for the provided `sellAmount`. Ensure to keep the `sellAmount` as close to the taker balance as possible.
 - **Fees:** Trade surplus <sup>1</sup> and swap fees will depend on the actual executed sell amount.
 
