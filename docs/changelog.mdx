@@ -4,6 +4,101 @@ rss: true
 description: "Stay updated on [0x API](https://0x.org/) changes and new features — [subscribe to the changelog](https://go.0x.org/subscribe-0x-changelog)."
 ---
 
+<Update label="2025-11-25">
+
+#### New Chains
+
+- **Monad:** Now supported in Swap API and Gasless API.
+
+#### New Liquidity Sources
+
+- **Avalanche:** Added Blackhole.
+- **Base:** Added Native AMM, Wildcard AMM, and the Deli Uniswap v4 hook.
+- **Ethereum:** Added Bebop, native AMM, and NFT Strategy.
+- **Linea:** Added Etherex.
+- **Monad:** Added AethonSwap, Atlantis v4, Bean Exchange, Capricorn, Clober v2, Curve, DYORSwap, Flap, IziSwap, Kuru, Merchant Moe v1, Monday Trade, Nad.fun, OctoSwap v1, OctoSwap v2, PancakeSwap v2, PancakeSwap v3, Purps v2, Swaap v2, Swyrl v3, Trader Joe v2.2, Uniswap v2, Uniswap v3, and Uniswap v4.
+
+#### New Features
+
+- **Multiple Integrator Fee Support:** API now supports sending _multiple swap fees_ in a single `/swap` or `/gasless` request.
+
+#### Chores
+
+- Improved routing for **FEY** and **CLANKER** ecosystems.
+
+</Update>
+
+<Update label="2025-10-31">
+
+#### New Features
+
+- **Max Trade Surplus BPS**: Added a new `maxSurplusBps` parameter for controlling max acceptable surplus on returned trades.
+- **Dashboard SSO Login**: Added support for Single Sign-On (SSO) in the 0x Dashboard.
+
+#### New Chains
+
+- **Sonic**: Added Swap API support.
+- **Unichain, Sonic, and Plasma**: Added Gasless API support.
+
+#### New Liquidity Sources
+
+- **Arbitrum:** Added Swaap.
+- **Avalanche:** Added Swaap, Blackhole.
+- **Base:** Added Rubicon, 9mm.
+- **BSC:** Added Swaap, Thena v2, Pancake Infinity.
+- **Berachain:** Added Nabla.
+- **Ethereum:** Added Rubicon.
+- **Linea:** Added Swaap.
+- **Mode:** Added Swaap.
+- **Monad:** Added Magma, Kuru, Crystal, Nitro.
+- **Optimism:** Added Swaap, Rubicon.
+- **Plasma:** Added Lithos.
+- **Polygon:** Added Swaap.
+
+##### Uniswap v4 Hooks
+
+- Added support for the following hooks:
+  - NFT Strategy
+  - Deli
+  - Doppler
+  - vii finance
+  - pubhouse
+  - DCA
+  - Clanker
+
+#### Chores
+
+- Improved routing for **$CREATE** and **$NOICE** ecosystems.
+- Improved validation on **Base**.
+
+</Update>
+
+<Update label="2025-09-29">
+
+#### New Chains
+
+- **Plasma Chain (9745)**: Now supported in Swap API.
+
+#### New Features
+
+- **Swap + Send**: Added support for swapping tokens and sending them to a specified address via a new `recipient` parameter in both Swap and Gasless APIs (see [API Reference](/api-reference/swap/).
+
+#### New Liquidity Sources
+
+- **Ethereum**: Added Fluid Lite.
+- **Plasma**: Added Curve, Balancer v3, Fluid, and Uniswap v3.
+
+#### Chores
+
+- Uniswap v4 hook:
+  - Added Renzo hook.
+  - Updated Clanker, Flaunch, and Zora hooks.
+- Improved routing for Zora ecosystem.
+- Improved routing for Retake ecosystem.
+- Improved latency across routing infrastructure.
+
+</Update>
+
 <Update label="2025-08-08">
 
     #### Private Early Release

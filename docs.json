@@ -86,7 +86,8 @@
                   "docs/0x-swap-api/advanced-topics/buy-sell-tax-support",
                   "docs/0x-swap-api/advanced-topics/about-the-rfq-system"
                 ]
-              }
+              }, 
+              "docs/introduction/faq"
             ]
           },
           {
@@ -139,6 +140,14 @@
               "docs/upgrading/upgrading-to-swap-v2",
               "docs/upgrading/upgrading-to-gasless-v2"
             ]
+          },
+          {
+            "group": "Need Help?",
+            "pages": [
+              "docs/introduction/faq",
+              "docs/help/contact-support",
+              "docs/help/contact-sales"
+            ]
           }
         ]
       },
@@ -162,8 +171,8 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Help Center",
-          "href": "https://help.0x.org/",
+          "anchor": "Contact Support",
+          "href": "https://help.0x.org/en/articles/8230055-how-to-get-dev-support-from-the-0x-team",
           "icon": "circle-question"
         },
         {
