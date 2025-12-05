@@ -15,8 +15,8 @@ See below for pricing guidance, code examples, and a live demo.
 
 Out-of-the-box, 0x Swap API offers two monetization options:
 
-1. [Affiliate fees](#option-1-collect-affiliate-fees) (aka trading fee or commission) – Available on all pricing plans.
-2. [Trade surplus](#option-2-collect-trade-surplus) (aka positive slippage) – Available to select integrators on custom plans. For assistance with setting up a custom plan, please [contact support](https://help.0x.org/en/articles/8230055-how-to-get-dev-support-from-the-0x-team).
+1. [Affiliate fees](/docs/0x-swap-api/guides/monetize-your-app-using-swap#option-1:-collect-affiliate-fees) (aka trading fee or commission) – Available on all pricing plans.
+2. [Trade surplus](/docs/0x-swap-api/guides/monetize-your-app-using-swap#option-2:-collect-trade-surplus) (aka positive slippage) – Available to select integrators on custom plans. For assistance with setting up a custom plan, please [contact support](https://help.0x.org/en/articles/8230055-how-to-get-dev-support-from-the-0x-team).
 
 <Tip>
 ### Demo Quicklinks
@@ -29,11 +29,13 @@ Out-of-the-box, 0x Swap API offers two monetization options:
 
 ## Option 1: Collect affiliate fees
 
-Affiliate fees (trading fees/commissions) can be applied to any trade made through your application. Include these parameters in your [Swap API request](/api#tag/Swap/operation/swap::allowanceHolder::getQuote):
+0x supports multiple affiliate fee (trading fees/commissions) within a single swap request. This allows you to route fees to multiple recipients with independently specified fee amounts — perfect for multi-product apps, partner revenue-share setups, or flexible monetization strategies.
 
-- `swapFeeRecipient` - Wallet to receive the fees.
-- `swapFeeBps` - The amount in Bps (Basis points) of the `swapFeeToken` to charge and deliver to the `swapFeeRecipient`. Denoted in basis points (0–1000 Bps = 0–10%).
-- `swapFeeToken` - The contract address of the token to receive trading fees in. This must be set to either the value of `buyToken` or the `sellToken`.
+To apply affiliate fees, include the following parameters in your [Swap API request](/api-reference/swap/getprice-allowance-holder):
+
+- `swapFeeRecipient` - The wallet address to receive the specified trading fees (supports single or multiple comma-separated values).
+- `swapFeeBps` - The fee amount(s), in basis points, to send to each corresponding `swapFeeRecipient`. Denoted in basis points (0–1000 Bps = 0–10%).
+- `swapFeeToken` - The contract address of token in which fees should be paid. This must be set to either the value of `buyToken` or the `sellToken`.
 
 ### Example API call
 

@@ -9,7 +9,7 @@ Here's a quick pre-flight checklist of things that need to be in order for a swa
 
 ## API Issues
 
-See [API Issues](/docs/introduction/faq/api-issues) for a full list of common 0x issues and how to resolve them.
+See [API Issues](/docs/introduction/api-issues) for a full list of common 0x issues and how to resolve them.
 
 ## Sufficient Liquidity
 
@@ -20,9 +20,9 @@ Check the value returned by the `liquidityAvailable` field that validates the av
 The taker (the address which holds the `sellToken` balance and is executing the swap transaction) should hold at _least_ the `sellAmount` of `sellToken`. The taker also should approve the `issues.allowance.spender` (AllowanceHolder or Permit2 contracts) to spend at least the same amount for that token.
 
 <Danger>
-- NEVER set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
+- NEVER set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
 
-- ONLY set allowances on [AllowanceHolder](/introduction/0x-cheat-sheet#allowanceholder-contract) or [Permit2](/introduction/0x-cheat-sheet#permit2-contract) contracts, as indicated by the API responses.
+- ONLY set allowances on [AllowanceHolder](/docs/core-concepts/contracts#allowanceholder-recommended) or [Permit2](/docs/core-concepts/contracts#permit2-advanced-use-only) contracts, as indicated by the API responses.
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
@@ -56,4 +56,4 @@ Then, all 3 values are packed and encoded as 65 bytes (bytes 0 through 31 repres
 
 ## More Resources
 
-For more troubleshooting resources, see the full [FAQ](/docs/introduction/faq/faq).
+For more troubleshooting resources, see the full [FAQ](/docs/introduction/faq).

@@ -5,13 +5,13 @@ description: Overview of how 0x works, the 0x APIs, and what you can build on 0x
 
 <Tip>
 
-Prefer to watch a video instead? Checkout the [0x Videos](https://0x.org/docs/introduction/guides#videos).
+Prefer to watch a video instead? Checkout the [0x Videos](https://www.youtube.com/watch?v=-iS0O0vBkuc&list=PLN51Tjs40v5MpBMfGxxiML9x2sd0uD94D).
 
 </Tip>
 
 ## What is 0x?
 
-0x allows builders to embed swaps in their onchain apps. Tap into aggregated liquidity from 130+ sources, across 19+ EVM chains with the most efficient trade execution. Our suite of APIs has processed over 60M+ million transactions and $154B+ in volume from more than 9+ million users trading on apps like Matcha.xyz, Coinbase Wallet, Robinhood Wallet, Phantom, Metamask, Zerion, Zapper, and more.
+0x allows builders to embed swaps in their onchain apps. Tap into aggregated liquidity from 150+ sources, across 19+ EVM chains with the most efficient trade execution. Our suite of APIs has processed over 60M+ million transactions and $154B+ in volume from more than 9+ million users trading on apps like Matcha.xyz, Coinbase Wallet, Robinhood Wallet, Phantom, Metamask, Zerion, Zapper, and more.
 
 <Frame>
   ![0x swap
@@ -24,9 +24,9 @@ At 0x, we believe all forms of value will eventually be tokenized and settle on-
 
 0x offers powerful APIs to simplify access to this fragmented liquidity:
 
-- [Swap API](https://0x.org/docs/0x-swap-api/introduction) - The most efficient liquidity aggregator for ERC20 tokens through a single API.
-- [Gasless API](https://0x.org/docs/gasless-api/introduction) - Never lose a user trade because of gas. Easily build frictionless apps with end-to-end gasless infra.
-- [Trade Analytics API](https://0x.org/docs/trade-analytics-api/introduction) - Programatically access historical trades initiated through your apps via 0x Swap and Gasless APIs.
+- [Swap API](/docs/0x-swap-api/introduction) - The most efficient liquidity aggregator for ERC20 tokens through a single API.
+- [Gasless API](/docs/gasless-api/introduction) - Never lose a user trade because of gas. Easily build frictionless apps with end-to-end gasless infra.
+- [Trade Analytics API](/docs/0x-swap-api/introduction) - Programatically access historical trades initiated through your apps via 0x Swap and Gasless APIs.
 
 <Frame>
   ![0x
@@ -35,7 +35,7 @@ At 0x, we believe all forms of value will eventually be tokenized and settle on-
 
 <Tip>
 
-### ELI5 0x_RFQ
+### ELI5 0x
 
 Just like Google Flights compares prices across airlines to help you find the best flight deal, 0x API scans multiple decentralized exchanges to get you the best price when trading tokens. Instead of hopping between exchanges yourself, 0x does the hard work for you — all through a simple API that developers can plug into their apps. It's fast, secure, and saves you time and money by finding the best route.
 
@@ -58,14 +58,14 @@ Within the 0x Ecosystem, there are two sides to a trade - Makers and Takers:
 
 #### Supply Side (Makers)
 
-This is the entity who creates [0x orders](https://0x.org/docs/developer-resources/core-concepts/order-types) and _provides liquidity_ into the system for the Demand side (Takers) to consume. 0x aggregates liquidity from multiple sources including:
+This is the entity who creates [0x orders](/docs/core-concepts/order-types) and _provides liquidity_ into the system for the Demand side (Takers) to consume. 0x aggregates liquidity from multiple sources including:
 
 - On-chain liquidity - DEXs, AMMs (e.g. Uniswap, Curve, Bancor)
 - Off-chain liquidity - Professional Market Makers, 0x's Open Orderbook network
 
 Relevant Docs:
 
-- [Market Makers](https://0x.org/docs/developer-resources/glossary#maker) - Professional Market Making With Limit Orders
+- [Market Makers](/docs/core-concepts/glossary#maker) - Professional Market Making With Limit Orders
 
 #### Demand Side (Takers)
 
@@ -80,8 +80,8 @@ Takers consume token liquidity from Makers. They are applications or agents that
 
 Relevant Docs:
 
-- [Swap API](https://0x.org/docs/0x-swap-api/introduction) - The most efficient liquidity aggregator for ERC20 tokens through a single API.
-- [Gasless API](https://0x.org/docs/gasless-api/introduction) - enable developers to build frictionless apps with end-to-end gasless infrastructure
+- [Swap API](/docs/0x-swap-api/introduction) - The most efficient liquidity aggregator for ERC20 tokens through a single API.
+- [Gasless API](/docs/gasless-api/introduction) - enable developers to build frictionless apps with end-to-end gasless infrastructure
 
 ## How does 0x work?
 
@@ -109,10 +109,9 @@ Here's how a 0x order is created and settled:
 </Step>
 
 <Step>
-  **Aggregation**: 0x API aggregates liquidity across all [supply
-  sources](https://0x.org/docs/introduction/introduction-to-0x#supply-aka-makers)
-  and surfaces the best price. - This is done using [off-chain relay, on-chain
-  settlement](https://0x.org/docs/developer-resources/core-concepts/glossary#off-chain-relay-on-chain-settlement),
+  **Aggregation**: 0x API aggregates liquidity across all supply sources and
+  surfaces the best price. - This is done using [off-chain relay, on-chain
+  settlement](/docs/core-concepts/glossary#off-chain-infrastructure,-on-chain-settlement),
   saving gas and improving flexibility.
 </Step>
 
@@ -122,7 +121,7 @@ Here's how a 0x order is created and settled:
 </Step>
 
 <Step>
- **Order Settlement**: The **0x Settler** verifies the signature, checks trade conditions, and [atomically swaps](https://0x.org/docs/developer-resources/core-concepts/glossary#atomically-swapped) assets between Maker and Taker.
+ **Order Settlement**: The **0x Settler** verifies the signature, checks trade conditions, and [atomically swaps](/docs/core-concepts/glossary#atomically-swapped) assets between Maker and Taker.
 </Step>
 </Steps>
 ## What can I build on 0x?

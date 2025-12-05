@@ -3,7 +3,7 @@ title: Set Token Allowances
 description: Learn how to set token allowances when making swaps
 ---
 
-To allow a third-party service—such as the 0x API—to move your ERC-20 tokens, you must first grant a [token allowance](https://tokenallowance.io/). When using 0x APIs, this means approving either [AllowanceHolder](/developer-resources/core-concepts/contracts#allowanceholder-contract) or [Permit2](/developer-resources/core-concepts/contracts#permit2-contract)to move tokens on your behalf.
+To allow a third-party service—such as the 0x API—to move your ERC-20 tokens, you must first grant a [token allowance](https://help.matcha.xyz/en/articles/8928084-what-are-token-allowances). When using 0x APIs, this means approving either [AllowanceHolder](/docs/core-concepts/contracts#allowanceholder-recommended) or [Permit2](/docs/core-concepts/contracts#permit2-advanced-use-only) to move tokens on your behalf.
 
 Which contract to approve depends on the API endpoint you're using:
 
@@ -39,9 +39,9 @@ This separation enhances security by isolating allowance management from swap ex
 
 <Danger>
 
-- NEVER set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
+- NEVER set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
 
-- ONLY set allowances on [AllowanceHolder](/introduction/0x-cheat-sheet#allowanceholder-contract) or [Permit2](/introduction/0x-cheat-sheet#permit2-contract) contracts, as indicated by the API responses.
+- ONLY set allowances on [AllowanceHolder](/docs/core-concepts/contracts#allowanceholder-recommended) or [Permit2](/docs/core-concepts/contracts#permit2-advanced-use-only) contracts, as indicated by the API responses.
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 

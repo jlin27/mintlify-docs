@@ -27,7 +27,6 @@ description: Learn how to upgrade to the latest version (v2) of Swap API.
 - [Demo app code](https://github.com/0xProject/0x-examples/tree/main/swap-v2-next-app)
 - [Permit2 headless example](https://github.com/0xProject/0x-examples/tree/main/swap-v2-headless-example)
 - [AllowanceHolder headless example](https://github.com/0xProject/0x-examples/tree/main/swap-v2-allowance-holder-headless-example)
-- Try the new [Swap TypeScript SDK](https://0x.org/docs/0x-swap-api/swap-ts-sdk) which supports 0x API v2 Swap and Gasless endpoints
 
 </Tip>
 
@@ -413,10 +412,6 @@ Note the following about the `issues` object for Price and Quote:
   - `allowance`: This field should not appear if the `quote` is sent after the token allowance is set.
   - `balance`: This field will not be returned if the taker has sufficient balance when the `quote` request is sent.
   - `simulationIncomplete: true`: This field will not be returned if the taker has sufficient balance when the `quote` request is sent.
-
-## Swap TypeScript SDK
-
-Starting with v2, we offer a TypeScript client for interacting with the 0x API. The @0x/swap-ts-sdk currently supports the "Swap" and "Gasless" endpoints of the 0x API v2. [Learn more about how to use it here.](https://0x.org/docs/0x-swap-api/swap-ts-sdk)
 
 ## Detailed Migration Guide
 

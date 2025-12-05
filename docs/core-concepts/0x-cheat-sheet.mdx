@@ -679,9 +679,9 @@ This section provides an overview of the three main contracts developers need to
 ### A Note About Setting Token Allowances
 
 <Danger>
-- NEVER set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
+- NEVER set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
 
-- ONLY set allowances on [AllowanceHolder](/introduction/0x-cheat-sheet#allowanceholder-contract) or [Permit2](/introduction/0x-cheat-sheet#permit2-contract) contracts, as indicated by the API responses.
+- ONLY set allowances on [AllowanceHolder](/docs/core-concepts/0x-cheat-sheet#allowanceholder-recommended) or [Permit2](/docs/core-concepts/0x-cheat-sheet#permit2-advanced-use-only) contracts, as indicated by the API responses.
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
@@ -719,8 +719,8 @@ AllowanceHolder is recommended for most integrators, and it is especially well-s
 
 Endpoints:
 
-- [/swap/allowance-holder/price](/api#tag/Swap/operation/swap::allowanceHolder::getPrice)
-- [/swap/allowance-holder/quote](/api#tag/Swap/operation/swap::allowanceHolder::getQuote)
+- [/swap/allowance-holder/price](/api-reference/swap/getprice-allowance-holder)
+- [/swap/allowance-holder/quote](/api-reference/swap/getquote-allowance-holder)
 
 Key Points:
 
@@ -739,7 +739,7 @@ Permit2, developed by Uniswap, enables flexible approvals with features like tim
 
 **⚠️ Permit2 is for advanced integrators only.**
 
-If you use Permit2, ONLY set allowances on [Permit2](/developer-resources/core-concepts/contracts#permit2-contract). NEVER set an allowance on the [Settler contract](/developer-resources/core-concepts/contracts#0x-settler-contract). Setting an allowance on Settler WILL result in loss of funds.
+If you use Permit2, ONLY set allowances on [Permit2](/docs/core-concepts/0x-cheat-sheet#permit2-advanced-use-only). NEVER set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract). Setting an allowance on Settler WILL result in loss of funds.
 
 When to use Permit2:
 
@@ -748,8 +748,8 @@ When to use Permit2:
 
 Endpoints:
 
-- [/swap/permit2/price](/api#tag/Swap/operation/swap::permit2::getPrice)
-- [/swap/permit2/quote](/api#tag/Swap/operation/swap::permit2::getQuote)
+- [/swap/permit2/price](/api-reference/swap/getprice-permit2)
+- [/swap/permit2/quote](/api-reference/swap/getquote-permit2)
 
 Key Points:
 
@@ -757,4 +757,4 @@ Key Points:
 - Requires a double-signature flow. This is more complex to integrate but allows for features like time-limited approvals.
 - Permit2 is deployed to `0x000000000022D473030F116dDEE9F6B43aC78BA3` across all chains. You can hardcode this address in your integration.
 
-Further Reading: [Permit2 Contract](/developer-resources/core-concepts/contracts#permit2-contract)
+Further Reading: [Permit2](/docs/core-concepts/0x-cheat-sheet#permit2-advanced-use-only)

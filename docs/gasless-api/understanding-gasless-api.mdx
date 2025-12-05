@@ -49,10 +49,10 @@ Gasless API provides a gasless experience at two points of the trade experience 
 
 When using the [Standard Approval Flow](/0x-swap-api/advanced-topics/how-to-set-your-token-allowances) (aka Gasless Approvals are not supported)
 
-- **Never** set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts).  
+- **Never** set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract).  
   This can result in loss of tokens or security risks. The Settler contract does **not** require or support token allowances, and doing so may allow misuse by other parties.
 
-- **Only** set allowances on [Permit2](/introduction/0x-cheat-sheet#permit2-contract) or [AllowanceHolder](/introduction/0x-cheat-sheet#allowanceholder-contract), as specified in API responses.
+- **Only** set allowances on [AllowanceHolder](/docs/core-concepts/contracts#allowanceholder-recommended) or [Permit2](/docs/core-concepts/contracts#permit2-advanced-use-only), as specified in API responses.
 
 - Always use the allowance target provided in `issues.allowance.spender`.
 
@@ -78,7 +78,7 @@ In the case of the 0x Settler, this signed message is what enables **meta-transa
 When using the Standard Approval Flow (aka Gasless Approvals are not supported)
 
 - **Never** set an allowance directly on the Settler contract.
-- **Only** set allowances on [Permit2](/introduction/0x-cheat-sheet#permit2-contract) or [AllowanceHolder](/introduction/0x-cheat-sheet#allowanceholder-contract), as specified in API responses.
+- **Only** set allowances on [AllowanceHolder](/docs/core-concepts/contracts#allowanceholder-recommended) or [Permit2](/docs/core-concepts/contracts#permit2-advanced-use-only), as specified in API responses.
 - Always use the allowance target returned in `issues.allowance.spender`.
 
 </Warning>
@@ -87,9 +87,9 @@ When using the Standard Approval Flow (aka Gasless Approvals are not supported)
 
 ### Token Allowances
 
-A [token allowances](https://tokenallowance.io/) is needed for a third-party to move your funds. For our case, we need to approve the [Permit2 contract](../../introduction/0x-cheat-sheet#permit2-contract) to trade our ERC-20 tokens. This requires writing to the ERC-20 contract and approving an allowance for Permit2 to move a specified amount of tokens on our behalf.
+A [token allowances](https://help.matcha.xyz/en/articles/8928084-what-are-token-allowances/) is needed for a third-party to move your funds. For our case, we need to approve the [Permit2](/docs/core-concepts/contracts#permit2-advanced-use-only) to trade our ERC-20 tokens. This requires writing to the ERC-20 contract and approving an allowance for Permit2 to move a specified amount of tokens on our behalf.
 
-For tokens that do not support gasless approvals, you need to set the token allowance via the steps listed [here](../../0x-swap-api/advanced-topics/how-to-set-your-token-allowances).
+For tokens that do not support gasless approvals, you need to set the token allowance via the steps listed [here](/docs/0x-swap-api/advanced-topics/handling-native-tokens).
 
 ### EIP-712: Human Readable Messages
 
@@ -121,7 +121,7 @@ The Gasless API can be combined with the Swap API to provide flexible execution 
 
 For instance, you can design an app that uses Gasless by default, and automatically falls back to the Swap API for native tokens or there is not enough token to cover gas.
 
-[![Click here to expand the image]](/docs/static/img/gasless-api/gasless-and-swap-flow-chart.jpg)
+[Click here to expand the image](/docs/static/img/gasless-api/gasless-and-swap-flow-chart.jpg)
 
 ![Composing Gasless Approval + Gasless Swaps + Swap API Flow Chart](/docs/static/img/gasless-api/gasless-and-swap-flow-chart.jpg)
 

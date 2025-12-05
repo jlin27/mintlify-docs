@@ -5,12 +5,17 @@ description: This guide explains how to properly handle native tokens properly i
 
 ## Understanding Native Tokens
 
-Native tokens are the foundational currencies of their respective blockchains. Examples include ETH on Ethereum, BNB on Binance Smart Chain, and POL on Polygon. Since native tokens do not inherently have a contract address (unlike ERC-20 tokens), the address `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE` is commonly used to represent native tokens in blockchain transactions.
+Native tokens are the base currencies of their blockchains—for example, ETH on Ethereum, BNB on BNB Chain, and POL on Polygon. Because native tokens do not have contract addresses like ERC-20 tokens, the placeholder address: `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE` is commonly used to represent native tokens in blockchain transactions.
 
 ### Notes on Native Token Representation
 
-- **On Ethereum:** This address, `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE`, represents Ether (ETH), as ETH is not an ERC-20 token.
-- **On Mantle Network:** An exception is the native token `$MNT`, which does have a contract address (`0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000`) for use on the Mantle EVM chain. This address is specific to `$MNT` on Mantle and does not apply to wrapped or bridged versions of `$MNT` on other networks. See this guide to understand other [differences between Ethereum and Mantle](https://docs.mantle.xyz/network/for-developers/difference-between-ethereum-and-mantle).
+For most of the EVM-compatible chains that we support, the native token is represented using the placeholder address `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE`. This convention exists because native assets (e.g., ETH on Ethereum) do not have contract addresses like ERC-20 tokens.
+
+#### Mantle Network Exception
+
+Mantle’s native token, **MNT**, does not follow this convention. On the Mantle EVM chain, MNT has a designated contract address: `0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000`.
+
+This address applies only to the native `MNT` token on Mantle and should not be used for wrapped or bridged versions on other networks. Refer to the linked guide for additional [differences between Ethereum and Mantle](https://docs.mantle.xyz/network/for-developers/difference-between-ethereum-and-mantle).
 
 For more context on native token addresses:
 

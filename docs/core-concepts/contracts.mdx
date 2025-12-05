@@ -9,9 +9,9 @@ description: Learn about 0x Settler, AllowanceHolder, and Permit2 contracts.
 
 <Danger>
 
-- NEVER set an allowance on the [Settler contract](/docs/core-concepts/0x-cheat-sheet#0x-settler). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
+- NEVER set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
 
-- ONLY set allowances on [AllowanceHolder](/introduction/0x-cheat-sheet#allowanceholder-contract) or [Permit2](/introduction/0x-cheat-sheet#permit2-contract) contracts, as indicated by the API responses.
+- ONLY set allowances on [AllowanceHolder](/docs/core-concepts/0x-cheat-sheet#allowanceholder-recommended) or [Permit2](/docs/core-concepts/0x-cheat-sheet#permit2-advanced-use-only) contracts, as indicated by the API responses.
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
@@ -56,7 +56,7 @@ For v2, we strongly advise **against hardcoding** any entry point contract addre
 
 - This is the **recommended** and most reliable method.
 
-- The entry point contracts returned in the APIs as `transaction.to` (see the [API reference](https://0x.org/docs/api#tag/Swap)) will always reflect the current Settler deployment automatically. No manual updates are needed.
+- The entry point contracts returned in the APIs as `transaction.to` (see the [API reference](/api-reference/)) will always reflect the current Settler deployment automatically. No manual updates are needed.
 
 #### Option 2: Check the dashboard
 
@@ -85,7 +85,7 @@ For v2, we strongly advise **against hardcoding** any entry point contract addre
 <Tip>
   Read more about [What is the difference between using Permit2 and
   AllowanceHolder for Swap
-  API?](/developer-resources/faqs-and-troubleshooting#parameter-questions)
+  API?](/docs/introduction/faq#allowanceholder-and-permit2)
 </Tip>
 
 ## AllowanceHolder (Recommended)
@@ -101,8 +101,8 @@ For v2, we strongly advise **against hardcoding** any entry point contract addre
 
 ### Endpoints
 
-- [/swap/allowance-holder/price](/api#tag/Swap/operation/swap::allowanceHolder::getPrice)
-- [/swap/allowance-holder/quote](/api#tag/Swap/operation/swap::allowanceHolder::getQuote)
+- [/swap/allowance-holder/price](/api-reference/swap/getprice-allowance-holder)
+- [/swap/allowance-holder/quote](/api-reference/swap/getquote-allowance-holder)
 
 ### Who Should Use AllowanceHolder?
 
@@ -145,7 +145,7 @@ The AllowanceHolder contract has chain-specific addresses that can be safely har
 
 <Tip>
   Learn more in our [AllowanceHolder integration
-  guide](/0x-swap-api/guides/swap-tokens-with-0x-swap-api) and the
+  guide](/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api) and the
   [AllowanceHolder example
   code](https://github.com/0xProject/0x-examples/tree/main).
 </Tip>
@@ -162,8 +162,8 @@ Permit2 offers flexible approvals with features like time-limited and granular a
 
 ### Endpoints
 
-- [/swap/permit2/price](/api#tag/Swap/operation/swap::permit2::getPrice)
-- [/swap/permit2/quote](/api#tag/Swap/operation/swap::permit2::getQuote)
+- [/swap/permit2/price](/api-reference/swap/getprice-permit2)
+- [/swap/permit2/quote](/api-reference/swap/getquote-permit2)
 
 ### Who Should Use Permit2?
 
@@ -205,7 +205,7 @@ Permit2 is deployed to `0x000000000022D473030F116dDEE9F6B43aC78BA3` across all c
 
 <Tip>
   Learn more in our [Permit2 integration
-  guide](https://0x.org/docs/next/upgrading/upgrading_to_swap_v2#permit2) and
-  the [Permit2 example
+  guide](/docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api-permit2) and the
+  [Permit2 example
   code](https://github.com/0xProject/0x-examples/tree/main/swap-v2-headless-example).
 </Tip>

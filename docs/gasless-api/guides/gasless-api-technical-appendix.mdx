@@ -4,7 +4,7 @@ description: Learn how to sign the trade & approval objects, split signatures, s
 ---
 
 The following is the typical flow when using Gasless API.
-This guide covers how to complete **steps 3 - 4**.
+This guide covers how to complete **steps 3 - 4 below**.
 
 1. Get an indicative price using `/gasless/price`
 2. Get a firm quote using `/gasless/quote`
@@ -16,13 +16,15 @@ This guide covers how to complete **steps 3 - 4**.
    5. Compute trade hash
 4. Check the trade status using `/gasless/status/{tradeHash}`
 
-:::tip
-Checkout the [Gasless API Runnable Headless Example](https://github.com/0xProject/0x-examples/tree/main/gasless-v2-headless-example) to see these steps in action
-:::
+<Tip>
+
+Checkout the [Gasless API Runnable Headless Example](https://github.com/0xProject/0x-examples/tree/main/gasless-v2-headless-example) to see these steps in action.
+
+</Tip>
 
 ## Signing objects
 
-To take advantage of gaslesses approvals and gasless trades, user must sign the `approval.eip712` and the `trade.eip712` objects returned by [`/quote`](/api#tag/Gasless/operation/gasless::getQuote). These objects contain everything (domain, types, primaryType, message) needed when signing these objects .
+To take advantage of gaslesses approvals and gasless trades, user must sign the `approval.eip712` and the `trade.eip712` objects returned by [`/quote`](/api-reference/gasless/getquote). These objects contain everything (domain, types, primaryType, message) needed when signing these objects .
 
 There are different EIP-712 signing strategies if you are user facing wallet that shows the users the details of what they are signing. Some commonly used tools for this include:
 
@@ -32,9 +34,9 @@ There are different EIP-712 signing strategies if you are user facing wallet tha
 
 ### Sign gasless approval object
 
-If a token supports [gasless approvals](./understanding-gasless-api#gasless-approvals), the `/quote` response will return an “approval” object which contains the necessary information to process a gasless approval, see below:
+If a token supports [gasless approvals](/docs/gasless-api/understanding-gasless-api#gasless-approvals), the `/quote` response will return an “approval” object which contains the necessary information to process a gasless approval, see below:
 
-```
+```json
  "approval":{
      "type": "permit", // this is approval.type from the /quote endpoint
      "hash": "0xf3849ebcd806e518f2d3457b76d31ccf41be07fe64f0a25bbe798f1b9edde872",
@@ -54,9 +56,11 @@ Keep in mind that the `domain` field of this object must follow a strict orderin
   - Contracts may not utilize all of these fields (i.e. one or more may be missing), but if they are present, they must be in this order
 - Any other field must follow in alphabetical order
 
-:::tip
+<Tip>
+
 See [example code to sign approval object](https://github.com/0xProject/0x-examples/blob/main/gasless-v2-headless-example/index.ts#L170-L180)
-:::
+
+</Tip>
 
 Here is an example to sign it using viem's [signTypedData](https://viem.sh/docs/actions/wallet/signTypedData.html):
 
@@ -78,9 +82,11 @@ async function signApprovalObject(): Promise<any> {
 
 Similar to gasless approval, to submit a trade, you must have your user sign `trade.eip712` object returned at the time of the `/quote`. All the instructions & caveats are the same as previous section.
 
-:::tip
+<Tip>
+
 See example code to [sign trade object](https://github.com/0xProject/0x-examples/blob/main/gasless-v2-headless-example/index.ts#L158-L168)
-:::
+
+</Tip>
 
 Here is an example to sign it using viem's [signTypedData](https://viem.sh/docs/actions/wallet/signTypedData.html):
 
@@ -102,11 +108,13 @@ async function signTradeObject(): Promise<any> {
 
 Once signed, the signature needs to be split to its individual components (v, r, s) and to be formatted in an object that can be POST to `/submit` (see object format [here](/api#tag/Gasless/operation/gasless::submit)).
 
-:::tip
+<Tip>
+
 Example code showing how to implement a [split signature function](https://github.com/0xProject/0x-examples/blob/main/gasless-v2-headless-example/utils/signature.ts). This is a variation of this [`splitSignature`](https://github.com/wevm/viem/discussions/458#discussioncomment-5842564) implementation.
 
 Example code using split signature to [split approval and trade signatures](https://github.com/0xProject/0x-examples/blob/main/gasless-v2-headless-example/index.ts#L207-L234)
-:::
+
+</Tip>
 
 ## POST the split signatures to /submit
 
@@ -139,9 +147,11 @@ curl -X POST '<https://api.0x.org/gasless/submit>' --header '0x-api-key: <API_KE
 }'
 ```
 
-:::tip
+<Tip>
+
 See [example code to POST split signatures to submit](https://github.com/0xProject/0x-examples/blob/main/gasless-v2-headless-example/index.ts#L236-L265)
-:::
+
+</Tip>
 
 Here is an example code snippet of how to submit it using JavaScript:
 
