@@ -332,7 +332,7 @@ This separation is a key architectural change from v1.
 
 This separation enhances security by isolating allowance management from swap execution.
 
-<Danger>
+<Note>
 
 - NEVER set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
 
@@ -340,7 +340,7 @@ This separation enhances security by isolating allowance management from swap ex
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
-</Danger>
+</Note>
 
 ### Updated URLs
 

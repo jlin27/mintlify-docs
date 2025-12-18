@@ -245,7 +245,7 @@ Specify the amount of ERC20 tokens the contract can use.
 
 For step-by-step instructions, see [how to set your token allowances](/docs/0x-swap-api/guides/build-token-swap-dapp-nextjs).
 
-<Danger>
+<Note>
 
 - NEVER set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
 
@@ -253,7 +253,7 @@ For step-by-step instructions, see [how to set your token allowances](/docs/0x-s
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
-</Danger>
+</Note>
 
 <Tip>
   When setting the token allowance, make sure to provide enough allowance for

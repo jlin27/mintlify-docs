@@ -452,7 +452,7 @@ With the introduction of the `issues.allowance` field in Gasless API v2, some fi
 
 In v2, for [tokens that do not support gasless approvals](/api-reference/gasless/getgaslessapprovaltokens), use the [standard token approval flow](/docs/0x-swap-api/advanced-topics/how-to-set-your-token-allowances).
 
-<Danger>
+<Note>
 When using the [Standard Approval Flow](/docs/0x-swap-api/advanced-topics/how-to-set-your-token-allowances) (aka Gasless Approvals are not supported)
 
 - NEVER set an allowance on the [Settler contract](/introduction/0x-cheat-sheet#0x-settler-contracts). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
@@ -461,7 +461,7 @@ When using the [Standard Approval Flow](/docs/0x-swap-api/advanced-topics/how-to
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
-</Danger>
+</Note>
 
 ## Detailed Migration Guide
 

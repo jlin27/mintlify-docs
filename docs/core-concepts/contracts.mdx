@@ -7,7 +7,7 @@ description: Learn about 0x Settler, AllowanceHolder, and Permit2 contracts.
 
 ## A Note about Setting Token Allowances
 
-<Danger>
+<Note>
 
 - NEVER set an allowance on the [Settler contract](/docs/core-concepts/contracts#0x-settler-contract). Doing so may result in unintended consequences, including potential loss of tokens or exposure to security risks. The Settler contract does not support or require token allowances for its operation. Setting an allowance on the Settler contract will lead to misuse by other parties.
 
@@ -15,7 +15,7 @@ description: Learn about 0x Settler, AllowanceHolder, and Permit2 contracts.
 
 - The correct allowance target is returned in `issues.allowance.spender` or `allowanceTarget`.
 
-</Danger>
+</Note>
 
 ## Allowance Target vs. Entry Point
 
@@ -83,9 +83,8 @@ For v2, we strongly advise **against hardcoding** any entry point contract addre
   - **Ignore (tokenId = 4)** - Ignore this address type. Not used for integrations.
 
 <Tip>
-  Read more about [What is the difference between using Permit2 and
-  AllowanceHolder for Swap
-  API?](/docs/introduction/faq#allowanceholder-and-permit2)
+  Read more about [What is the difference between using AllowanceHolder and
+  Permit2 for Swap API?](/docs/introduction/faq#allowanceholder-and-permit2)
 </Tip>
 
 ## AllowanceHolder (Recommended)
@@ -133,15 +132,8 @@ If the taker doesn't have an allowance set to the contract, the AllowanceHolder 
 
 The AllowanceHolder contract has chain-specific addresses that can be safely hardcoded. Always verify with the [official documentation](https://github.com/0xProject/0x-settler/blob/master/README.md#allowanceholder-addresses) before doing so:
 
-- **Cancun hardfork**:  
-  `0x0000000000001fF3684f28c67538d4D072C22734`  
-  (Ethereum Mainnet, Ethereum Sepolia, Polygon, Base, Optimism, Arbitrum, Avalanche, Blast, BNB)
-- **Shanghai hardfork**:  
-  `0x0000000000005E88410CcDFaDe4a5EfaE4b49562`  
-  (Scroll, Mantle)
-- **London hardfork**:  
-  `0x000000000000175a8b9bC6d539B3708EEd92EA6c`  
-  (Linea)
+- `0x0000000000001fF3684f28c67538d4D072C22734` — **Cancun hardfork chains** (Ethereum Mainnet, Arbitrum, Avalanche, Base, Berachain, Blast, BSC, Ink, Linea, Mode, Monad, Optimism, Plasma, Polygon, Scroll, Sonic, Unichain, World Chain)
+- `0x0000000000005E88410CcDFaDe4a5EfaE4b49562` — **Shanghai hardfork chains** (Mantle)
 
 <Tip>
   Learn more in our [AllowanceHolder integration

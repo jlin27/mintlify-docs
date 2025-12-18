@@ -48,6 +48,18 @@
                   "docs/0x-swap-api/guides/swap-tokens-with-0x-swap-api"
                 ]
               },
+              {
+                "group": "Develop with AI",
+                "pages": [
+                  {
+                    "group": "Setup",
+                    "pages": [
+                      "docs/introduction/develop-with-ai/setup/ai-docs-integration"
+                    ]
+                  },
+                  "docs/introduction/develop-with-ai/ai-tools"
+                ]
+              },
               "docs/introduction/supported-chains",
               "docs/introduction/demo-apps",
               "docs/introduction/faq",
